@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --main-font: #ffffff;
+    --spotify-green: #1DB954;
+    --spotify-black: #191414;
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background-color: var(--spotify-black);
+}
+
+a, a:hover, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.btn {
+    border-radius: 5px;
+}
+
+.login--btn {
+    background-color: var(--spotify-green);
+    width: 300px;
+    margin: auto;
+    color: var(--main-font);
+    padding: 1rem;
+}
+.view {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
