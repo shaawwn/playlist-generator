@@ -38,11 +38,17 @@ a, a:hover, a:active {
     color: var(--main-font);
     padding: 1rem;
 }
+
+/* || Views */
 .view {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.dashboard {
+    color: var(--main-font);
 }
 
