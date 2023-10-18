@@ -17,11 +17,12 @@ function Dashboard({code}) {
     const [topTracks, setTopTracks] = useState()
     const [recommendations, setRecommendations] = useState()
 
-    const [seeds, setSeeds] = useState() // set these to be the seeds for recommendations
+    const [seeds, setSeeds] = useState([]) // genres, tracks, artists
 
     function handleGeneratePlaylistClick() {
         console.log("Generating playlist on click")
     }
+
     useEffect(() => {
         // get user details
         if(!accessToken) return
@@ -82,6 +83,8 @@ function Dashboard({code}) {
                     <TopItemsContainer 
                         items={topGenreCount}
                         label={'genre'}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
                     />
                     :<h2>Loading</h2>
                 }
@@ -90,6 +93,8 @@ function Dashboard({code}) {
                     <TopItemsContainer 
                         items={topTracks}
                         label={'tracks'}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
                     />
                     :<h2>Loading</h2>
                 }
@@ -98,6 +103,8 @@ function Dashboard({code}) {
                     <TopItemsContainer 
                         items={topArtists}
                         label={'artists'}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
                     />
                     :<h2>Loading</h2>
                 }

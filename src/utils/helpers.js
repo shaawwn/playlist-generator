@@ -74,7 +74,7 @@ function generatePlaylist(genres, artists, tracks, accessToken, setRecommendatio
     // genres are string names for the genre (eg 'classical', 'hard-rock') where hyphens are used for spaces
     // artist/tracks are the IDs of artist/tracks
     // everything is comma seperated
-    console.log("GEN PLAYLIST")
+
     console.log(genres, artists, tracks, accessToken)
     fetch(`https://api.spotify.com/v1/recommendations?seed_genres=${genres}&seed_artists=${artists}&seed_tracks=${tracks}
     `, {

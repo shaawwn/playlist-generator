@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react';
 import TopItem from './TopItem'
+import { v4 as uuidv4 } from 'uuid';
 
-
-function TopItemsContainer({items, label}) {
+function TopItemsContainer({items, label, setSeeds, seeds}) {
 
   
 
@@ -13,7 +13,10 @@ function TopItemsContainer({items, label}) {
                 {items.map((item) => {
                     return <TopItem 
                         item={item.name ? item.name : item}
-                        id={item.id ? item.id: ''}
+                        id={item.id ? item.id: item}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
+                        label={label}
                     />
                 })}
             </div>
