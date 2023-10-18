@@ -52,3 +52,14 @@ a, a:hover, a:active {
     color: var(--main-font);
 }
 
+.top-items {
+    width: 100%;
+    display: flex;
+}
+
+.top-items--list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+

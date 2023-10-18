@@ -16,6 +16,25 @@ function getTopArtistGenres(topItems) {
     return [genreListTotal, genreSet]
 }
 
+function countGenres(genreList, genreSet) {
+    // return an object with genre list count eg {classic rock: 5, blues: 3, classical: 1}
+    let genreCount = {}
+    genreSet.forEach((genre) => {
+        // item will be the toSearch string
+        genreCount[genre] = genreList.filter(item => item === genre).length
+    })
+
+    return genreCount
+}
+
+function sortTopGenres(genreCount) {
+    const sortedObjDescending = Object.fromEntries(
+        Object.entries(genreCount).sort(([, a], [, b]) => b - a)
+      );
+      let toShowGenre = (Object.keys(sortedObjDescending).length -1) < 20 ? Object.keys(sortedObjDescending).length - 1 : 20
+    return Object.keys(sortedObjDescending).slice(0, toShowGenre)
+}
+
 function getTopArtists(topItems) {
     // return a list of the top artists fro a user
     // need to get artist IDs too I think
@@ -47,11 +66,15 @@ function getTopTracks(topItems) {
 
     return topTracks
 }
+
+
 /**
  * 
  */
 module.exports = {
     getTopArtistGenres,
     getTopArtists,
-    getTopTracks
+    getTopTracks,
+    countGenres,
+    sortTopGenres
 }
