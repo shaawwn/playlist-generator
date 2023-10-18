@@ -7,6 +7,8 @@
 :root {
     --main-font: #ffffff;
     --spotify-green: #1DB954;
+    --spotify-green-hover: #159542;
+    --magenta: #FF00FF;
     --spotify-black: #191414;
     height: 100%;
 }
@@ -57,9 +59,41 @@ a, a:hover, a:active {
     display: flex;
 }
 
-.top-items--list {
-    width: 100%;
+.top-items__wrapper {
     display: flex;
     flex-direction: column;
+    padding: 1.125rem;
+    font-size: 1.5rem;
 }
+
+.top-items__container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.top-items__item {
+    background-color:var(--spotify-green);
+    border-radius: 20px;
+    padding: .4rem;
+    font-size: 1.125rem;
+}
+
+.top-items__item:hover {
+    background-color: var(--spotify-green-hover);
+    cursor: pointer
+}
+
+.top-items__item--clicked {
+    background-color: var(--magenta);
+    color: var(--spotify-black);
+}
+
+.top-items__item--clicked:hover {
+    background-color: var(--magenta);
+    color: var(--spotify-black);
+}
+
+
 

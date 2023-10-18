@@ -2,7 +2,12 @@ import {useState, useEffect} from 'react'
 import useAuth from '../hooks/useAuth'
 import { v4 as uuidv4 } from 'uuid';
 
-import {getTopArtistGenres, getTopArtists, getTopTracks, countGenres, sortTopGenres} from '../utils/helpers'
+import {getTopArtistGenres, getTopArtists, getTopTracks, countGenres, sortTopGenres, generatePlaylist} from '../utils/helpers'
+import TopItemsContainer from './TopItemsContainer'
+import TopItem from './TopItem'
+
+
+
 function Dashboard({code}) {
 
     const accessToken = useAuth(code)
@@ -12,8 +17,10 @@ function Dashboard({code}) {
     const [topTracks, setTopTracks] = useState()
     const [recommendations, setRecommendations] = useState()
 
-    function generatePlaylist() {
-        console.log("Generating playlist")
+    const [seeds, setSeeds] = useState() // set these to be the seeds for recommendations
+
+    function handleGeneratePlaylistClick() {
+        console.log("Generating playlist on click")
     }
     useEffect(() => {
         // get user details
@@ -55,54 +62,75 @@ function Dashboard({code}) {
         // topArtists.slice(0, 1).map(artist => artist.id).toString()
         // topTracks.slice(0, 1).map(track => track.id).toString()
         //
-        // fetch(`https://api.spotify.com/v1/recommendations?seed_genres=&seed_artists=${topArtists.slice(0, 1).map(artist => artist.id).toString()}&seed_tracks=${topTracks.slice(0, 1).map(track => track.id).toString()}
-        // `, {
-        //     headers: {
-        //         'Authorization': `Bearer ${accessToken}`
-        //     }
-        // }).then((response) => response.json())
-        // .then((data) => {
-        //     console.log(getTopTracks(data.tracks))
-        //     setRecommendations(getTopTracks(data.tracks))
-        // })
-        // .catch((err) => {
-        //     console.log("There was an error", err)
-        // })
+        generatePlaylist(
+            '', 
+            topArtists.slice(0, 1).map(artist => artist.id).toString(), 
+            topTracks.slice(0, 1).map(track => track.id).toString(), 
+            accessToken, 
+            setRecommendations
+        )
+
     }, [topGenres, topArtists, topTracks])
 
 
     return (
         <div className="dashboard">
-            <button onClick={generatePlaylist}>Generate Playlist</button>
+            <button onClick={handleGeneratePlaylistClick}>Generate Playlist</button> 
             {topGenres ? <div className="top-items">
+                {/* Top Genres */}
                 {topGenreCount ? 
-                    <div className="top-items--list">
-                        <h2>Genres</h2>
-                        {topGenreCount.map((genre) => {
-                            return <p>{genre}</p>
-                        })}
-                    </div>
-                    :<h1>Loading...</h1>
+                    <TopItemsContainer 
+                        items={topGenreCount}
+                        label={'genre'}
+                    />
+                    :<h2>Loading</h2>
                 }
+                {/* Top Tracks */}
                 {topTracks ? 
-                    <div className="top-items--list">
-                        <h2>Tracks</h2>
-                        {topTracks.map(track => {
-                            return <p>{track.name} by {track.artist}</p>
-                        })}
-                    </div>
-                    :<h1>Loading...</h1>
+                    <TopItemsContainer 
+                        items={topTracks}
+                        label={'tracks'}
+                    />
+                    :<h2>Loading</h2>
                 }
-                {topArtists ?
-                    <div className="top-items--list">
-                        <h2>Artists</h2>
-                        {topArtists.map(artist => {
-                            return <p>{artist.name}</p>
-                        })}
-                    </div>
-                    :<h1>Loading...</h1>
+                {/* Top Artists */}
+                {topArtists ? 
+                    <TopItemsContainer 
+                        items={topArtists}
+                        label={'artists'}
+                    />
+                    :<h2>Loading</h2>
                 }
             </div>
+            // {topGenres ? <div className="top-items">
+            //     {topGenreCount ? 
+            //         <div className="top-items--list">
+            //             <h2>Genres</h2>
+            //             {topGenreCount.map((genre) => {
+            //                 return <p key={uuidv4()}>{genre}</p>
+            //             })}
+            //         </div>
+            //         :<h1>Loading...</h1>
+            //     }
+            //     {topTracks ? 
+            //         <div className="top-items--list">
+            //             <h2>Tracks</h2>
+            //             {topTracks.map(track => {
+            //                 return <p key={uuidv4()}>{track.name} by {track.artist}</p>
+            //             })}
+            //         </div>
+            //         :<h1>Loading...</h1>
+            //     }
+            //     {topArtists ?
+            //         <div className="top-items--list">
+            //             <h2>Artists</h2>
+            //             {topArtists.map(artist => {
+            //                 return <p key={uuidv4()}>{artist.name}</p>
+            //             })}
+            //         </div>
+            //         :<h1>Loading...</h1>
+            //     }
+            // </div>
             :<h2>Nothing</h2>    
         }
             {recommendations ?
