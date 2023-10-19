@@ -16,6 +16,7 @@ function Dashboard({code}) {
     const [topArtists, setTopArtists] = useState()
     const [topTracks, setTopTracks] = useState()
     const [recommendations, setRecommendations] = useState()
+    const [refresh, setRefresh] = useState(false)
 
     const [seeds, setSeeds] = useState([]) // genres, tracks, artists
 
@@ -41,6 +42,7 @@ function Dashboard({code}) {
         return formattedSeeds
     }
 
+
     function handleGeneratePlaylistClick() {
         generateFromTopItems()
         let genre_seeds = seeds.filter((seed) => seed[0] === 'genre').map(seed => seed[1])
@@ -56,6 +58,16 @@ function Dashboard({code}) {
         } else {
             generatePlaylist(genre_seeds, artist_seeds, track_seeds, accessToken, setRecommendations)
         }
+    }
+
+    function refreshPage() {
+        // if(refresh === false) {
+        //     setRefresh(true)
+        // } else if(refresh === true) {
+        //     setRefresh(false)
+        // }
+        window.location.reload()
+        console.log("Refreshing")
     }
 
     useEffect(() => {
@@ -109,9 +121,12 @@ function Dashboard({code}) {
     }, [topGenres, topArtists, topTracks])
 
 
+
     return (
         <div className="dashboard">
             <button onClick={handleGeneratePlaylistClick}>Generate Playlist</button> 
+            <button onClick={refreshPage}>Reset</button>
+            <div className=""></div>
             {topGenres ? <div className="top-items">
                 {/* Top Genres */}
                 {topGenreCount ? 
