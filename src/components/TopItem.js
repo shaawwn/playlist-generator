@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react';
 
 function TopItem({item, id, setSeeds, seeds, label}) {
     const [seed, setSeed] = useState([label, id])
+    const [active, setActive] = useState(false) // use this state to determine if an item is clicked
+    const [activeStyle, setActiveStyle] = useState('')
 
     function handleSetSeeds() {
         // check that seeds  not greater than 5 and then append to seeds
@@ -16,9 +18,8 @@ function TopItem({item, id, setSeeds, seeds, label}) {
 
     function addSeed(e) {
         if(seeds.length < 5) {
-
             setSeeds([...seeds, seed])
-            e.classList.add('top-items__item--clicked')
+            setActive(true)
         } else {
             console.log(seeds.length, seeds)
             alert("Cannot add anymore seeds", seeds)
@@ -26,11 +27,12 @@ function TopItem({item, id, setSeeds, seeds, label}) {
     }
 
     function removeSeed(e) {
-        e.classList.remove('top-items__item--clicked')
         const newSeeds = [...seeds]
         newSeeds.splice(seeds.indexOf(seed), 1)
         setSeeds(newSeeds)
+        setActive(false)
     }
+
     function _checkSelected(e) {
         // assuming e is a div, check if it already selected, if not, select, if it is, deselect
         e.classList.contains('top-items__item--clicked') ? removeSeed(e) : addSeed(e)
@@ -42,8 +44,25 @@ function TopItem({item, id, setSeeds, seeds, label}) {
         }
         return true
     }
+
+    useEffect(() => {
+        if(active === true) {
+            // console.log("Setting active")
+            setActiveStyle('top-items__item--clicked')
+        } else {
+            // console.log("Removing active")
+            setActiveStyle('')
+        }
+    }, [active])
+
+    useEffect(() => {
+        if(seeds.length === 0 && active === true) {
+            setActive(false)
+        }
+    }, [seeds])
+
     return(
-        <div className="top-items__item" onClick={(e) => handleClick(e)}>
+        <div className={`top-items__item ${activeStyle}`} onClick={(e) => handleClick(e)}>
             <p>{item}</p>
         </div>
     )

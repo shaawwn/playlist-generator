@@ -21,9 +21,6 @@ function Dashboard({code}) {
     const [seeds, setSeeds] = useState([]) // genres, tracks, artists
 
     function generateFromTopItems() {
-        console.log("TOPS", topGenres[0], topArtists[0].id, topTracks[0].id)
-
-
         generatePlaylist(
             topGenres[0], 
             topArtists.slice(0, 1).map(artist => artist.id).toString(), 
@@ -32,6 +29,7 @@ function Dashboard({code}) {
             setRecommendations
         )
     }
+
     function _formatGenreSeeds(genreSeeds) {
         // when there is a space in a genre, ex. 'hard rock', spotify adds a hyphen for genre seeds, ex 'hard-rock'
         let formattedSeeds = []
@@ -41,7 +39,6 @@ function Dashboard({code}) {
         })
         return formattedSeeds
     }
-
 
     function handleGeneratePlaylistClick() {
         generateFromTopItems()
@@ -60,14 +57,9 @@ function Dashboard({code}) {
         }
     }
 
-    function refreshPage() {
-        // if(refresh === false) {
-        //     setRefresh(true)
-        // } else if(refresh === true) {
-        //     setRefresh(false)
-        // }
-        window.location.reload()
-        console.log("Refreshing")
+    function resetSeeds() {
+        setSeeds([])
+        setRecommendations()
     }
 
     useEffect(() => {
@@ -97,7 +89,7 @@ function Dashboard({code}) {
             }
         }).then((response) => response.json())
         .then((data) => {
-            console.log("top track data", data)
+            // console.log("top track data", data)
             //
             setTopTracks(getTopTracks(data.items))
         })
@@ -125,7 +117,7 @@ function Dashboard({code}) {
     return (
         <div className="dashboard">
             <button onClick={handleGeneratePlaylistClick}>Generate Playlist</button> 
-            <button onClick={refreshPage}>Reset</button>
+            <button onClick={resetSeeds}>Reset</button>
             <div className=""></div>
             {topGenres ? <div className="top-items">
                 {/* Top Genres */}
