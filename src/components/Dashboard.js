@@ -19,8 +19,43 @@ function Dashboard({code}) {
 
     const [seeds, setSeeds] = useState([]) // genres, tracks, artists
 
+    function generateFromTopItems() {
+        console.log("TOPS", topGenres[0], topArtists[0].id, topTracks[0].id)
+
+
+        generatePlaylist(
+            topGenres[0], 
+            topArtists.slice(0, 1).map(artist => artist.id).toString(), 
+            topTracks.slice(0, 1).map(track => track.id).toString(), 
+            accessToken, 
+            setRecommendations
+        )
+    }
+    function _formatGenreSeeds(genreSeeds) {
+        // when there is a space in a genre, ex. 'hard rock', spotify adds a hyphen for genre seeds, ex 'hard-rock'
+        let formattedSeeds = []
+        genreSeeds.forEach((seed) => {
+            console.log("Format seed", seed)
+            formattedSeeds.push(seed.split(" ").join("-"))
+        })
+        return formattedSeeds
+    }
+
     function handleGeneratePlaylistClick() {
-        console.log("Generating playlist on click")
+        generateFromTopItems()
+        let genre_seeds = seeds.filter((seed) => seed[0] === 'genre').map(seed => seed[1])
+        let track_seeds = seeds.filter((seed) => seed[0] === 'track').map(seed => seed[1]).toString()
+        let artist_seeds = seeds.filter((seed) => seed[0] === 'artist').map(seed => seed[1]).toString()
+        
+        genre_seeds = _formatGenreSeeds(genre_seeds).toString()
+
+        // If there are NO items selected, genreate automatically from top Items
+        if(genre_seeds.length === 0 && track_seeds.length === 0 && artist_seeds.length === 0) {
+            console.log("Generating automatically", seeds)
+            generateFromTopItems()
+        } else {
+            generatePlaylist(genre_seeds, artist_seeds, track_seeds, accessToken, setRecommendations)
+        }
     }
 
     useEffect(() => {
@@ -63,13 +98,13 @@ function Dashboard({code}) {
         // topArtists.slice(0, 1).map(artist => artist.id).toString()
         // topTracks.slice(0, 1).map(track => track.id).toString()
         //
-        generatePlaylist(
-            '', 
-            topArtists.slice(0, 1).map(artist => artist.id).toString(), 
-            topTracks.slice(0, 1).map(track => track.id).toString(), 
-            accessToken, 
-            setRecommendations
-        )
+        // generatePlaylist(
+        //     '', 
+        //     topArtists.slice(0, 1).map(artist => artist.id).toString(), 
+        //     topTracks.slice(0, 1).map(track => track.id).toString(), 
+        //     accessToken, 
+        //     setRecommendations
+        // )
 
     }, [topGenres, topArtists, topTracks])
 
@@ -92,7 +127,7 @@ function Dashboard({code}) {
                 {topTracks ? 
                     <TopItemsContainer 
                         items={topTracks}
-                        label={'tracks'}
+                        label={'track'}
                         setSeeds={setSeeds}
                         seeds={seeds}
                     />
@@ -102,7 +137,7 @@ function Dashboard({code}) {
                 {topArtists ? 
                     <TopItemsContainer 
                         items={topArtists}
-                        label={'artists'}
+                        label={'artist'}
                         setSeeds={setSeeds}
                         seeds={seeds}
                     />

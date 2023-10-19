@@ -75,7 +75,6 @@ function generatePlaylist(genres, artists, tracks, accessToken, setRecommendatio
     // artist/tracks are the IDs of artist/tracks
     // everything is comma seperated
 
-    console.log(genres, artists, tracks, accessToken)
     fetch(`https://api.spotify.com/v1/recommendations?seed_genres=${genres}&seed_artists=${artists}&seed_tracks=${tracks}
     `, {
         headers: {
@@ -83,7 +82,7 @@ function generatePlaylist(genres, artists, tracks, accessToken, setRecommendatio
         }
     }).then((response) => response.json())
     .then((data) => {
-        console.log(getTopTracks(data.tracks))
+        // console.log(getTopTracks(data.tracks))
         setRecommendations(getTopTracks(data.tracks))
     })
     .catch((err) => {

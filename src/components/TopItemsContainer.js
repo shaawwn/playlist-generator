@@ -17,6 +17,7 @@ function TopItemsContainer({items, label, setSeeds, seeds}) {
                         setSeeds={setSeeds}
                         seeds={seeds}
                         label={label}
+                        key={item.id ? item.id + 'top' : item + 'top' }
                     />
                 })}
             </div>

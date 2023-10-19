@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 
 function TopItem({item, id, setSeeds, seeds, label}) {
     const [seed, setSeed] = useState([label, id])
+
     function handleSetSeeds() {
         // check that seeds  not greater than 5 and then append to seeds
         // append the type and ID, for example seed.append({'genre': 'rock'}) or {'track': '12312jnk12}
@@ -9,6 +10,7 @@ function TopItem({item, id, setSeeds, seeds, label}) {
     }
 
     function handleClick(e) {
+        e.stopPropagation()
         _clickDiv(e) === true ? _checkSelected(e.target) : _checkSelected(e.target.parentNode)
     }
 
