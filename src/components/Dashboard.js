@@ -118,7 +118,7 @@ function Dashboard({code}) {
         <div className="dashboard">
             <button onClick={handleGeneratePlaylistClick}>Generate Playlist</button> 
             <button onClick={resetSeeds}>Reset</button>
-            <div className=""></div>
+            <div className="seed-view">
             {topGenres ? <div className="top-items">
                 {/* Top Genres */}
                 {topGenreCount ? 
@@ -151,37 +151,45 @@ function Dashboard({code}) {
                     :<h2>Loading</h2>
                 }
             </div>
-            // {topGenres ? <div className="top-items">
-            //     {topGenreCount ? 
-            //         <div className="top-items--list">
-            //             <h2>Genres</h2>
-            //             {topGenreCount.map((genre) => {
-            //                 return <p key={uuidv4()}>{genre}</p>
-            //             })}
-            //         </div>
-            //         :<h1>Loading...</h1>
-            //     }
-            //     {topTracks ? 
-            //         <div className="top-items--list">
-            //             <h2>Tracks</h2>
-            //             {topTracks.map(track => {
-            //                 return <p key={uuidv4()}>{track.name} by {track.artist}</p>
-            //             })}
-            //         </div>
-            //         :<h1>Loading...</h1>
-            //     }
-            //     {topArtists ?
-            //         <div className="top-items--list">
-            //             <h2>Artists</h2>
-            //             {topArtists.map(artist => {
-            //                 return <p key={uuidv4()}>{artist.name}</p>
-            //             })}
-            //         </div>
-            //         :<h1>Loading...</h1>
-            //     }
-            // </div>
+
             :<h2>Nothing</h2>    
         }
+            </div>
+            {/* {topGenres ? <div className="top-items">
+
+                {topGenreCount ? 
+                    <TopItemsContainer 
+                        items={topGenreCount}
+                        label={'genre'}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
+                    />
+                    :<h2>Loading</h2>
+                }
+
+                {topTracks ? 
+                    <TopItemsContainer 
+                        items={topTracks}
+                        label={'track'}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
+                    />
+                    :<h2>Loading</h2>
+                }
+
+                {topArtists ? 
+                    <TopItemsContainer 
+                        items={topArtists}
+                        label={'artist'}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
+                    />
+                    :<h2>Loading</h2>
+                }
+            </div>
+
+            :<h2>Nothing</h2>    
+        } */}
             {recommendations ?
                 <>  
                     <h1>Here's your new playlist!</h1>
