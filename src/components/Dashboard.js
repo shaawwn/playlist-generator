@@ -4,8 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import {getTopArtistGenres, getTopArtists, getTopTracks, countGenres, sortTopGenres, generatePlaylist} from '../utils/helpers'
 import TopItemsContainer from './TopItemsContainer'
-import TopItem from './TopItem'
-
+import RecommendationsView from './RecommendationsView'
 
 
 function Dashboard({code}) {
@@ -21,6 +20,7 @@ function Dashboard({code}) {
     const [seeds, setSeeds] = useState([]) // genres, tracks, artists
 
     function generateFromTopItems() {
+        console.log("Generating from top items", seeds)
         generatePlaylist(
             topGenres[0], 
             topArtists.slice(0, 1).map(artist => artist.id).toString(), 
@@ -41,7 +41,7 @@ function Dashboard({code}) {
     }
 
     function handleGeneratePlaylistClick() {
-        generateFromTopItems()
+
         let genre_seeds = seeds.filter((seed) => seed[0] === 'genre').map(seed => seed[1])
         let track_seeds = seeds.filter((seed) => seed[0] === 'track').map(seed => seed[1]).toString()
         let artist_seeds = seeds.filter((seed) => seed[0] === 'artist').map(seed => seed[1]).toString()
@@ -62,6 +62,49 @@ function Dashboard({code}) {
         setRecommendations()
     }
 
+    function displaySeedView() {
+        return(
+            <div className="seed-view">
+            {topGenres ? <div className="top-items">
+                {/* Top Genres */}
+                {topGenreCount ? 
+                    <TopItemsContainer 
+                        items={topGenreCount}
+                        label={'genre'}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
+                    />
+                    :<h2>Loading</h2>
+                }
+                {/* Top Tracks */}
+                {topTracks ? 
+                    <TopItemsContainer 
+                        items={topTracks}
+                        label={'track'}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
+                    />
+                    :<h2>Loading</h2>
+                }
+                {/* Top Artists */}
+                {topArtists ? 
+                    <TopItemsContainer 
+                        items={topArtists}
+                        label={'artist'}
+                        setSeeds={setSeeds}
+                        seeds={seeds}
+                    />
+                    :<h2>Loading</h2>
+                }
+            </div>
+
+            :<h2>Nothing</h2>}
+                <button onClick={handleGeneratePlaylistClick}>Generate Playlist</button> 
+                <button onClick={resetSeeds}>Reset</button>
+                {recommendations ? <button>Save Playlist</button>:<span></span>}
+        </div>
+        )
+    }
     useEffect(() => {
         // get user details
         if(!accessToken) return
@@ -116,89 +159,20 @@ function Dashboard({code}) {
 
     return (
         <div className="dashboard">
-            <button onClick={handleGeneratePlaylistClick}>Generate Playlist</button> 
-            <button onClick={resetSeeds}>Reset</button>
-            <div className="seed-view">
-            {topGenres ? <div className="top-items">
-                {/* Top Genres */}
-                {topGenreCount ? 
-                    <TopItemsContainer 
-                        items={topGenreCount}
-                        label={'genre'}
-                        setSeeds={setSeeds}
-                        seeds={seeds}
-                    />
-                    :<h2>Loading</h2>
-                }
-                {/* Top Tracks */}
-                {topTracks ? 
-                    <TopItemsContainer 
-                        items={topTracks}
-                        label={'track'}
-                        setSeeds={setSeeds}
-                        seeds={seeds}
-                    />
-                    :<h2>Loading</h2>
-                }
-                {/* Top Artists */}
-                {topArtists ? 
-                    <TopItemsContainer 
-                        items={topArtists}
-                        label={'artist'}
-                        setSeeds={setSeeds}
-                        seeds={seeds}
-                    />
-                    :<h2>Loading</h2>
-                }
-            </div>
-
-            :<h2>Nothing</h2>    
-        }
-            </div>
-            {/* {topGenres ? <div className="top-items">
-
-                {topGenreCount ? 
-                    <TopItemsContainer 
-                        items={topGenreCount}
-                        label={'genre'}
-                        setSeeds={setSeeds}
-                        seeds={seeds}
-                    />
-                    :<h2>Loading</h2>
-                }
-
-                {topTracks ? 
-                    <TopItemsContainer 
-                        items={topTracks}
-                        label={'track'}
-                        setSeeds={setSeeds}
-                        seeds={seeds}
-                    />
-                    :<h2>Loading</h2>
-                }
-
-                {topArtists ? 
-                    <TopItemsContainer 
-                        items={topArtists}
-                        label={'artist'}
-                        setSeeds={setSeeds}
-                        seeds={seeds}
-                    />
-                    :<h2>Loading</h2>
-                }
-            </div>
-
-            :<h2>Nothing</h2>    
-        } */}
+            {/* <div className="navbar">
+                <button onClick={handleGeneratePlaylistClick}>Generate Playlist</button> 
+                <button onClick={resetSeeds}>Reset</button>
+                {recommendations ? <button>Save Playlist</button>:<span></span>}
+            </div> */}
             {recommendations ?
                 <>  
-                    <h1>Here's your new playlist!</h1>
-                    {recommendations.map(track => {
-                        return <p key={uuidv4()}>{track.name} by {track.artist}</p>
-                    })}
+                    <RecommendationsView 
+                        recommendations={recommendations}
+                    />
                 </>
-                 
-                 :<h1>Loading playlist...</h1>}
+                
+                :displaySeedView()}
+            
         </div>
     )
 }

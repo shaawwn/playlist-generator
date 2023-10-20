@@ -82,8 +82,7 @@ function generatePlaylist(genres, artists, tracks, accessToken, setRecommendatio
         }
     }).then((response) => response.json())
     .then((data) => {
-        // console.log(getTopTracks(data.tracks))
-        setRecommendations(getTopTracks(data.tracks))
+        setRecommendations(data.tracks)
     })
     .catch((err) => {
         console.log("There was an error", err)
