@@ -168,6 +168,7 @@ function Dashboard({code}) {
                 <>  
                     <RecommendationsView 
                         recommendations={recommendations}
+                        accessToken={accessToken}
                     />
                 </>
                 
