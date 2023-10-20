@@ -1,10 +1,10 @@
 import {useState, useEffect} from 'react';
 
-function Webplayer({accessToken}) {
+function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, currentTrack, setCurrentTrack}) {
     const [player, setPlayer] = useState(undefined)
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
-    const [current_track, setTrack] = useState(undefined);
+
 
 
     useEffect(() => {
@@ -27,6 +27,7 @@ function Webplayer({accessToken}) {
 
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
+                setDeviceId(device_id)
             });
 
             player.addListener('not_ready', ({ device_id }) => {
@@ -39,7 +40,7 @@ function Webplayer({accessToken}) {
                     return;
                 }
             
-                setTrack(state.track_window.current_track);
+                setCurrentTrack(state.track_window.current_track); // I think this is where it will automatically set current track? 
                 setPaused(state.paused);
             
             
@@ -54,6 +55,8 @@ function Webplayer({accessToken}) {
 
         
     }, []);
+
+
 
     return(
         <div className="webplayer">
