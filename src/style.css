@@ -10,6 +10,7 @@
     --spotify-green-hover: #159542;
     --magenta: #FF00FF;
     --spotify-black: #191414;
+    --spotify-black-hover: #3e3838;
     height: 100%;
 }
 
@@ -133,6 +134,15 @@ a, a:hover, a:active {
     justify-content: space-evenly;
 }
 
+.track-table__row--currently-playing {
+    color: var(--spotify-green);
+}
+
+.track-table__row:hover {
+    cursor: pointer;
+    background-color: var(--spotify-black-hover);
+}
+
 .track-table__cell {
     text-align: left;
     flex: 1; 
@@ -159,3 +169,17 @@ a, a:hover, a:active {
     background-color: blue;
 }
 
+.webplayer__wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.webplayer__wrapper--item {
+    width: 30%;
+    /* background-color: red; */
+}
+.webplayer__controls {
+    display: flex;
+    justify-content: space-between;
+
+}

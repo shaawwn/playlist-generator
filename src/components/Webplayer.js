@@ -1,5 +1,9 @@
 import {useState, useEffect} from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay, faPause, faForward, faBackward, faVolumeHigh, faHeadphones } from '@fortawesome/free-solid-svg-icons'
+
+
 function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, currentTrack, setCurrentTrack}) {
     const [player, setPlayer] = useState(undefined)
     const [is_paused, setPaused] = useState(false);
@@ -39,13 +43,17 @@ function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, curre
                 if (!state) {
                     return;
                 }
-            
-                setCurrentTrack(state.track_window.current_track); // I think this is where it will automatically set current track? 
+
                 setPaused(state.paused);
             
-            
                 player.getCurrentState().then( state => { 
-                    (!state)? setActive(false) : setActive(true) 
+                    // (!state)? setActive(false) : setActive(true)
+                    if(state === null) {
+                        setActive(false)
+                    } else if(state !== null) {
+                        setActive(true)
+                        setCurrentTrack(state.track_window.current_track)
+                    }
                 });
             
             }));
@@ -61,15 +69,25 @@ function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, curre
     return(
         <div className="webplayer">
             <div className="webplayer__wrapper">
-
-                <div className="webplayer__album">
-                    <p>Album cover</p>
+                <div className="webplayer__details webplayer__wrapper--item">
+                    <div className="webplayer__album">
+                        <p>Album cover</p>
+                    </div>
+                    <div className="webplayer__now-playing">
+                        <p>Now Playing</p>
+                    </div>
+                    <div className="webplayer__artist">
+                        <p>Artist</p>
+                    </div>
                 </div>
-                <div className="webplayer__now-playing">
-                    <p>Now Playing</p>
+                <div className="webplayer__controls webplayer__wrapper--item">
+                    <FontAwesomeIcon icon={faBackward} size="5x"/>
+                    <FontAwesomeIcon icon={faPlay} size="5x"/>
+                    <FontAwesomeIcon icon={faForward} size="5x"/>
                 </div>
-                <div className="webplayer__artist">
-                    <p>Artist</p>
+                <div className="webplayer__options webplayer__wrapper--item">
+                    <FontAwesomeIcon icon={faHeadphones} size="5x"/>
+                    <FontAwesomeIcon icon={faVolumeHigh} size="5x"/>      
                 </div>
             </div>
         </div>

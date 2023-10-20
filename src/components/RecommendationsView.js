@@ -31,9 +31,9 @@ function RecommendationsView({recommendations, accessToken}) {
         return modPlaylist
     }
 
-    function play(trackId) {
-
-        const uris = setFirstTrack(trackId)
+    function play(track) {
+        // track.id (I should set currentTrack to the full track object so I can use it)
+        const uris = setFirstTrack(track.uri)
         // on clicking a track, it should start to play the playlist with THAT TRACK as the first
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
             method: "PUT",
@@ -49,7 +49,9 @@ function RecommendationsView({recommendations, accessToken}) {
                 throw new Error()
             } 
         }).then((data) => {
-            console.log("Playback started")
+            console.log("Playback started", track.uri)
+            console.log("Setting current track to: ", track)
+            setCurrentTrack(track)
         }).catch((err) => {
             console.log("Error on playback start", err)
         })

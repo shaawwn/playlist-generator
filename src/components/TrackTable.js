@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 function TrackTable({tracks, deviceId, play, pause, currentTrack, setCurrentTrack}) {
-
+    console.log("Current track in table", currentTrack)
     return(
         <div className="track-table">
             {tracks.map(track => {
@@ -14,6 +14,8 @@ function TrackTable({tracks, deviceId, play, pause, currentTrack, setCurrentTrac
                     deviceId={deviceId}
                     play={play}
                     pause={pause}
+                    currentTrack={currentTrack}
+                    setCurrentTrack={setCurrentTrack}
                     key={track.id}
                 />
             })}
