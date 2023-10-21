@@ -9,10 +9,18 @@ function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, curre
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
 
-
+    function disconnectPlayer() {
+        player.removeListener('ready', player._eventListeners.ready[0])
+        player.removeListener('not_ready', player._eventListeners.not_ready[0])
+        player.disconnect()
+        setPlayer(undefined)
+    }
 
     useEffect(() => {
 
+        if(player) {
+            disconnectPlayer()
+        }
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
         script.async = true;
@@ -24,7 +32,7 @@ function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, curre
             const player = new window.Spotify.Player({
                 name: 'Web Playback SDK',
                 getOAuthToken: cb => { cb(accessToken); },
-                volume: 0.5
+                volume: 1
             });
 
             setPlayer(player);
@@ -64,25 +72,35 @@ function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, curre
         
     }, []);
 
+    useEffect(() => {
 
+    }, [currentTrack])
 
     return(
         <div className="webplayer">
             <div className="webplayer__wrapper">
                 <div className="webplayer__details webplayer__wrapper--item">
-                    <div className="webplayer__album">
-                        <p>Album cover</p>
-                    </div>
-                    <div className="webplayer__now-playing">
-                        <p>Now Playing</p>
-                    </div>
-                    <div className="webplayer__artist">
-                        <p>Artist</p>
-                    </div>
+                    {currentTrack ? 
+                        <>
+                            <div className="webplayer__album">
+                                <img src={currentTrack.album.images[1].url} alt="album cover">
+
+                                </img>
+                            </div>
+                            <div className="webplayer__now-playing">
+                                <p>{currentTrack.name}</p>
+                            </div>
+                            <div className="webplayer__artist">
+                                <p>{currentTrack.artists[0].name}</p>
+                            </div>
+                        </>
+                    :<p>No track</p>}
                 </div>
                 <div className="webplayer__controls webplayer__wrapper--item">
                     <FontAwesomeIcon icon={faBackward} size="5x"/>
+                    {/* {currentTrack} */}
                     <FontAwesomeIcon icon={faPlay} size="5x"/>
+                    
                     <FontAwesomeIcon icon={faForward} size="5x"/>
                 </div>
                 <div className="webplayer__options webplayer__wrapper--item">

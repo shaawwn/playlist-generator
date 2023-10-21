@@ -12,6 +12,9 @@ function RecommendationsView({recommendations, accessToken}) {
     const [playlist, setPlaylist] = useState([])
     const [deviceId, setDeviceId] = useState()
     const [currentTrack, setCurrentTrack] = useState()
+    const [playing, setPlaying] = useState(false) // 
+    const [currentlyPlaying, setCurrentlyPlaying] = useState()  // use this for play/pause
+
 
     function createPlaylist() {
         // create an array of track uris that can be passed to spotify to play.
@@ -25,15 +28,35 @@ function RecommendationsView({recommendations, accessToken}) {
         const indexOfTrack = playlist.indexOf(trackId)
         let modPlaylist = [...playlist]
         const track = modPlaylist.splice(indexOfTrack, 1)
-        // modPlaylist = shufflePlaylist(modPlaylist)
         modPlaylist.unshift(track[0])
-        // setPlaylist(modPlaylist) // I don't think I really need to setState for this...
         return modPlaylist
     }
-
+    
+    function resume() {
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+            method: "PUT",
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            if(!response.status === 204) {
+                throw new Error()
+            } 
+        }).then((data) => {
+            // console.log("Playback started", track.uri)
+            // console.log("Setting current track to: ", track)
+            // setCurrentTrack(track)
+            setPlaying(true)
+        }).catch((err) => {
+            console.log("Error on playback start", err)
+        })
+    }
     function play(track) {
         // track.id (I should set currentTrack to the full track object so I can use it)
+
         const uris = setFirstTrack(track.uri)
+
         // on clicking a track, it should start to play the playlist with THAT TRACK as the first
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
             method: "PUT",
@@ -52,13 +75,28 @@ function RecommendationsView({recommendations, accessToken}) {
             console.log("Playback started", track.uri)
             console.log("Setting current track to: ", track)
             setCurrentTrack(track)
+            setPlaying(true)
         }).catch((err) => {
             console.log("Error on playback start", err)
         })
     }
 
     function pause() {
-
+        fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`, {
+            method: "PUT",
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }).then((response) => {
+            if(!response.status === 204) {
+                throw new Error()
+            }
+        }).then(() => {
+            console.log("Pausing")
+            setPlaying(false)
+        }).catch((err) => {
+            console.log("Error pausing track", err)
+        })
     }
 
     function skip() {
@@ -79,11 +117,6 @@ function RecommendationsView({recommendations, accessToken}) {
 
     }, [])
 
-    // useEffect(() => {
-
-    // }, [deviceId])
-
-
     return(
         <div className="recommendations-view">
             <Navbar />
@@ -91,9 +124,11 @@ function RecommendationsView({recommendations, accessToken}) {
                 tracks={recommendations}
                 deviceId={deviceId}
                 play={play}
+                resume={resume}
                 pause={pause}
                 currentTrack={currentTrack}
                 setCurrentTrack={setCurrentTrack}
+                playing={playing}
             />
             <Webplayer 
                 accessToken={accessToken}

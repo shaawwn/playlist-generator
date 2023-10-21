@@ -3,8 +3,8 @@ import TrackTableRow from './TrackTableRow';
 import { v4 as uuidv4 } from 'uuid';
 
 
-function TrackTable({tracks, deviceId, play, pause, currentTrack, setCurrentTrack}) {
-    console.log("Current track in table", currentTrack)
+function TrackTable({tracks, deviceId, play, resume, pause, currentTrack, setCurrentTrack, playing}) {
+
     return(
         <div className="track-table">
             {tracks.map(track => {
@@ -13,9 +13,11 @@ function TrackTable({tracks, deviceId, play, pause, currentTrack, setCurrentTrac
                     track={track}
                     deviceId={deviceId}
                     play={play}
+                    resume={resume}
                     pause={pause}
                     currentTrack={currentTrack}
                     setCurrentTrack={setCurrentTrack}
+                    playing={playing}
                     key={track.id}
                 />
             })}
