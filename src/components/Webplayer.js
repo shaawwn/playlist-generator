@@ -1,24 +1,26 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause, faForward, faBackward, faVolumeHigh, faHeadphones } from '@fortawesome/free-solid-svg-icons'
 
 
-function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, currentTrack, setCurrentTrack}) {
-    const [player, setPlayer] = useState(undefined)
+function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previous, currentTrack, setCurrentTrack, playing, recommendations}) {
+    // const [player, setPlayer] = useState(undefined)
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
 
+    const player = useRef(null)
     function disconnectPlayer() {
-        player.removeListener('ready', player._eventListeners.ready[0])
-        player.removeListener('not_ready', player._eventListeners.not_ready[0])
-        player.disconnect()
-        setPlayer(undefined)
+        player.current.removeListener('ready', player._eventListeners.ready[0])
+        player.current.removeListener('not_ready', player._eventListeners.not_ready[0])
+        player.current.disconnect()
+        // setPlayer(undefined)
     }
 
     useEffect(() => {
 
-        if(player) {
+        if(player.current) {
+            // so the problem here is that player doesn't exist in react, but it still has a spotify isntance on the spotify servers
             disconnectPlayer()
         }
         const script = document.createElement("script");
@@ -29,24 +31,24 @@ function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, curre
 
         window.onSpotifyWebPlaybackSDKReady = () => {
 
-            const player = new window.Spotify.Player({
+            player.current = new window.Spotify.Player({
                 name: 'Web Playback SDK',
                 getOAuthToken: cb => { cb(accessToken); },
                 volume: 1
             });
 
-            setPlayer(player);
+            // setPlayer(player);
 
-            player.addListener('ready', ({ device_id }) => {
+            player.current.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
                 setDeviceId(device_id)
             });
 
-            player.addListener('not_ready', ({ device_id }) => {
+            player.current.addListener('not_ready', ({ device_id }) => {
                 console.log('Device ID has gone offline', device_id);
             });
 
-            player.addListener('player_state_changed', ( state => {
+            player.current.addListener('player_state_changed', ( state => {
 
                 if (!state) {
                     return;
@@ -54,7 +56,7 @@ function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, curre
 
                 setPaused(state.paused);
             
-                player.getCurrentState().then( state => { 
+                player.current.getCurrentState().then( state => { 
                     // (!state)? setActive(false) : setActive(true)
                     if(state === null) {
                         setActive(false)
@@ -65,16 +67,31 @@ function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, curre
                 });
             
             }));
-            player.connect();
+            player.current.connect();
 
         };
 
-        
+        return () => {
+            if(player.current) {
+                console.log("Getting ready to disconnect...")
+                player.current.disconnect().then(() => console.log("Disconnected"))
+            } else {
+                console.log("There is no player instance.", player)
+            }
+        }    
     }, []);
 
     useEffect(() => {
 
     }, [currentTrack])
+
+    // useEffect(() => {
+    //     if(player && (recommendations === undefined)) {
+    //         console.log("Disconnecting player")
+    //         disconnectPlayer()
+    //     }
+    //     console.log("REcommendations", recommendations)
+    // }, [recommendations, player])
 
     return(
         <div className="webplayer">
@@ -83,29 +100,34 @@ function Webplayer({accessToken, setDeviceId, play, pause, skip, previous, curre
                     {currentTrack ? 
                         <>
                             <div className="webplayer__album">
-                                <img src={currentTrack.album.images[1].url} alt="album cover">
+                                <img src={currentTrack.album.images[1].url} alt="album cover" className="webplayer__album__image">
 
                                 </img>
                             </div>
-                            <div className="webplayer__now-playing">
-                                <p>{currentTrack.name}</p>
-                            </div>
-                            <div className="webplayer__artist">
-                                <p>{currentTrack.artists[0].name}</p>
+                            <div className="webplayer__details__song__details">
+                                <div className="webplayer__now-playing">
+                                    <p>{currentTrack.name}</p>
+                                </div>
+                                <div className="webplayer__artist">
+                                    <p>{currentTrack.artists[0].name}</p>
+                                </div>
                             </div>
                         </>
                     :<p>No track</p>}
                 </div>
                 <div className="webplayer__controls webplayer__wrapper--item">
-                    <FontAwesomeIcon icon={faBackward} size="5x"/>
+                    <FontAwesomeIcon icon={faBackward} size="3x" />
                     {/* {currentTrack} */}
-                    <FontAwesomeIcon icon={faPlay} size="5x"/>
+
+                    {playing ? <FontAwesomeIcon icon={faPause} size="3x" onClick={pause}/> 
+                    : <FontAwesomeIcon icon={faPlay} size="3x" onClick={resume}/>
+                    }
                     
-                    <FontAwesomeIcon icon={faForward} size="5x"/>
+                    <FontAwesomeIcon icon={faForward} size="3x" onClick={skip}/>
                 </div>
                 <div className="webplayer__options webplayer__wrapper--item">
-                    <FontAwesomeIcon icon={faHeadphones} size="5x"/>
-                    <FontAwesomeIcon icon={faVolumeHigh} size="5x"/>      
+                    <FontAwesomeIcon icon={faHeadphones} size="3x"/>
+                    <FontAwesomeIcon icon={faVolumeHigh} size="3x"/>      
                 </div>
             </div>
         </div>

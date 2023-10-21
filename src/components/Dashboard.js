@@ -10,6 +10,7 @@ import RecommendationsView from './RecommendationsView'
 function Dashboard({code}) {
 
     const accessToken = useAuth(code)
+    const [user, setUser] = useState()
     const [topGenres, setTopGenres] = useState()
     const [topGenreCount, setTopGenreCount] = useState()
     const [topArtists, setTopArtists] = useState()
@@ -41,7 +42,7 @@ function Dashboard({code}) {
     }
 
     function handleGeneratePlaylistClick() {
-
+        resetSeeds() // this is close, but it resets the app temporarily when it shuld just reset recommendations
         let genre_seeds = seeds.filter((seed) => seed[0] === 'genre').map(seed => seed[1])
         let track_seeds = seeds.filter((seed) => seed[0] === 'track').map(seed => seed[1]).toString()
         let artist_seeds = seeds.filter((seed) => seed[0] === 'artist').map(seed => seed[1]).toString()
@@ -56,11 +57,21 @@ function Dashboard({code}) {
             generatePlaylist(genre_seeds, artist_seeds, track_seeds, accessToken, setRecommendations)
         }
     }
-
-    function resetSeeds() {
+    
+    function reset() {
         setSeeds([])
         setRecommendations()
     }
+
+    function resetSeeds() {
+        setSeeds([])
+        if(recommendations) {
+            setRecommendations([]) 
+        } else {
+            setRecommendations()
+        }
+    }
+
 
     function displaySeedView() {
         return(
@@ -99,12 +110,20 @@ function Dashboard({code}) {
             </div>
 
             :<h2>Nothing</h2>}
-                <button onClick={handleGeneratePlaylistClick}>Generate Playlist</button> 
-                <button onClick={resetSeeds}>Reset</button>
-                {recommendations ? <button>Save Playlist</button>:<span></span>}
+                <button onClick={handleGeneratePlaylistClick} className="navbar__btn btn">Generate Playlist</button> 
+                <button onClick={resetSeeds} className="navbar__btn btn">Reset</button>
+                {recommendations ? <button className="navbar__btn btn">Save Playlist</button>:<span></span>}
         </div>
         )
     }
+
+    // useEffect(() => {
+    //     if(!accessToken) return
+
+    //     // get user data
+
+    // }, [accessToken])
+
     useEffect(() => {
         // get user details
         if(!accessToken) return
@@ -120,6 +139,16 @@ function Dashboard({code}) {
             setTopGenres(genreList)
             setTopGenreCount(sortTopGenres(countGenres(genreList, genreSet)))
             setTopArtists(getTopArtists(data.items))
+        })
+
+        fetch(`https://api.spotify.com/v1/me`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }).then((response) => response.json())
+        .then((data) => {
+            console.log("USER DATA", data.id)
+            setUser(data)
         })
     }, [accessToken])
 
@@ -159,16 +188,15 @@ function Dashboard({code}) {
 
     return (
         <div className="dashboard">
-            {/* <div className="navbar">
-                <button onClick={handleGeneratePlaylistClick}>Generate Playlist</button> 
-                <button onClick={resetSeeds}>Reset</button>
-                {recommendations ? <button>Save Playlist</button>:<span></span>}
-            </div> */}
             {recommendations ?
                 <>  
                     <RecommendationsView 
                         recommendations={recommendations}
                         accessToken={accessToken}
+                        generatePlaylist={handleGeneratePlaylistClick}
+                        reset={reset}
+                        refresh={resetSeeds}
+                        userID={user.id}
                     />
                 </>
                 

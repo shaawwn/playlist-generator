@@ -25,7 +25,6 @@ function TrackTableRow({track, deviceId, play, resume, pause, currentTrack, setC
                     resume()
                 }
             } else {
-                console.log("Not playing and no current track")
                 play(track)
             }
             

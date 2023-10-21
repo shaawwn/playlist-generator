@@ -32,15 +32,19 @@ a, a:hover, a:active {
 
 .btn {
     border-radius: 5px;
+    background-color: var(--spotify-green);
+    color: var(--main-font);
 }
 
 .login--btn {
-    background-color: var(--spotify-green);
+    /* background-color: var(--spotify-green); */
     width: 300px;
     margin: auto;
     color: var(--main-font);
     padding: 1rem;
 }
+
+
 
 /* || Views */
 .view {
@@ -51,8 +55,11 @@ a, a:hover, a:active {
     justify-content: center;
 }
 
-.navbar {
-    height: 10vh;
+
+.navbar__btn {
+    margin: 0 auto;
+    padding: 1rem;
+    font-size: 1.125rem;
 }
 
 .seed-view, .recommendations-view {
@@ -116,7 +123,10 @@ a, a:hover, a:active {
 }
 
 .navbar {
-    background-color: red;
+    /* background-color: red; */
+    top: 1vh;
+    display: flex;
+    justify-content: center;
 }
 
 .track-table {
@@ -164,14 +174,30 @@ a, a:hover, a:active {
 
 .webplayer {
     width: 100%;
-    padding: 2rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.5);
     /* height: 15%; */
-    background-color: blue;
+    /* background-color: blue; */
+}
+
+.webplayer__details {
+    display: flex;
+    flex-direction: row;
+}
+.webplayer__album__image {
+    width: 64px;
+    height: 64px;
 }
 
 .webplayer__wrapper {
     display: flex;
     justify-content: space-evenly;
+}
+
+.webplayer__details__song__details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .webplayer__wrapper--item {
