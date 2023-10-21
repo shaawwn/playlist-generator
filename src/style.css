@@ -189,6 +189,9 @@ a, a:hover, a:active {
     height: 64px;
 }
 
+.webplayer__buttons {
+    
+}
 .webplayer__wrapper {
     display: flex;
     justify-content: space-evenly;

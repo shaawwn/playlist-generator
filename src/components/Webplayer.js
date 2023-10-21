@@ -129,7 +129,13 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
                     <FontAwesomeIcon icon={faHeadphones} size="3x"/>
                     <FontAwesomeIcon icon={faVolumeHigh} size="3x"/>      
                 </div>
+                <div className="webplayer__buttons">
+                <button className="navbar__btn btn" >Reroll Playlist</button>
+                <button className="navbar__btn btn" >Reset</button>
+                <button className="navbar__btn btn" >+ Playlist</button>            
             </div>
+            </div>
+
         </div>
     )
 }
