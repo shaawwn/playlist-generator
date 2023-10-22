@@ -6,7 +6,6 @@ function TrackTableRow({track, deviceId, play, resume, pause, currentTrack, setC
     const [active, setActive] = useState(false) // going by uri === uri alone will cause same songs but different uris (eng vs japanese versions for example) to be 'different' so need to set active song to determine css styling
 
     function handleClick() {
-        console.log("Track name", track.name, track.uri)
         if(playing) {
             // pause current song on click
             if(currentTrack) {
@@ -50,6 +49,15 @@ function TrackTableRow({track, deviceId, play, resume, pause, currentTrack, setC
     useEffect(() => {
 
     }, [playing])
+
+    useEffect(() => {
+        if(active) {
+            // set the style to highligh the track
+            setCurrent('track-table__row--currently-playing')
+        } else {
+            setCurrent('')
+        }
+    }, [active])
 
     return(
         <div className={`track-table__row ${current}`} onClick={handleClick}>

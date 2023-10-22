@@ -63,12 +63,14 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
             })
         })
     }
+
     function resetPlaylist() {
         setPlaylist([])
         setCurrentTrack()
         setPlaylist(false)
         pause()
     }
+
     function setFirstTrack(trackId) {
         // If not shuffled, then START palylist from index of first track, then it will play sequentially
         // on clicking a track, put that track at the front of the list of tracks to play.
@@ -80,6 +82,7 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
     }
     
     function resume() {
+        console.log("RESUME")
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
             method: "PUT",
             headers: {
@@ -99,12 +102,14 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
             console.log("Error on playback start", err)
         })
     }
+
     function play(track) {
         // track.id (I should set currentTrack to the full track object so I can use it)
 
         // pause() // there's a fraction of a second audio at the start of some songs, maybe because it is trying to play another song before switchin?
-
+        console.log("TRACK", track.name)
         const uris = setFirstTrack(track.uri)
+
 
         // on clicking a track, it should start to play the playlist with THAT TRACK as the first
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
@@ -192,7 +197,9 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
 
         // get user device ID
 
-    }, [])
+    }, [recommendations])
+
+    
 
     return(
         <div className="recommendations-view">

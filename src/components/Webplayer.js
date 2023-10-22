@@ -5,6 +5,7 @@ import { faPlay, faPause, faForward, faBackward, faVolumeHigh, faHeadphones } fr
 
 
 function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previous, currentTrack, setCurrentTrack, playing, recommendations, generatePlaylist, reset, resetPlaylist, savePlaylist}) {
+
     // const [player, setPlayer] = useState(undefined)
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
@@ -14,6 +15,12 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
     function handleReset() {
         reset()
         resetPlaylist()
+    }
+
+    function handlePlaylistReroll() {
+        reset()
+        resetPlaylist()
+        generatePlaylist()
     }
     function disconnectPlayer() {
         player.current.removeListener('ready', player._eventListeners.ready[0])
