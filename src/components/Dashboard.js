@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {getTopArtistGenres, getTopArtists, getTopTracks, countGenres, sortTopGenres, generatePlaylist} from '../utils/helpers'
 import TopItemsContainer from './TopItemsContainer'
 import RecommendationsView from './RecommendationsView'
+import Search from './Search';
 
 
 function Dashboard({code}) {
@@ -43,6 +44,7 @@ function Dashboard({code}) {
 
     function handleGeneratePlaylistClick() {
         resetSeeds() // this is close, but it resets the app temporarily when it shuld just reset recommendations
+        // need to 'reset' playback, or pass it an empty list or something
         let genre_seeds = seeds.filter((seed) => seed[0] === 'genre').map(seed => seed[1])
         let track_seeds = seeds.filter((seed) => seed[0] === 'track').map(seed => seed[1]).toString()
         let artist_seeds = seeds.filter((seed) => seed[0] === 'artist').map(seed => seed[1]).toString()
@@ -78,7 +80,7 @@ function Dashboard({code}) {
             <div className="seed-view">
             {topGenres ? <div className="top-items">
                 {/* Top Genres */}
-                {topGenreCount ? 
+                {/* {topGenreCount ? 
                     <TopItemsContainer 
                         items={topGenreCount}
                         label={'genre'}
@@ -86,7 +88,8 @@ function Dashboard({code}) {
                         seeds={seeds}
                     />
                     :<h2>Loading</h2>
-                }
+                } */}
+                <Search />
                 {/* Top Tracks */}
                 {topTracks ? 
                     <TopItemsContainer 

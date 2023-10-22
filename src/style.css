@@ -212,3 +212,19 @@ a, a:hover, a:active {
     justify-content: space-between;
 
 }
+
+/* || search */
+
+.search__resilts {
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+}
+
+.search__results--tracks {
+
+}
+
+.search__results--artists {
+
+}

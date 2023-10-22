@@ -125,7 +125,8 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
                                 </div>
                             </div>
                         </>
-                    :<p>No track</p>}
+                    :<span></span>
+                    }
                 </div>
                 <div className="webplayer__controls webplayer__wrapper--item">
                     <FontAwesomeIcon icon={faBackward} size="3x" />

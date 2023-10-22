@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import {msToMinutesAndSeconds} from '../utils/helpers';
 
 function TrackTableRow({track, deviceId, play, resume, pause, currentTrack, setCurrentTrack, playing}) {
     // console.log("RENDERING WITH NO CURRENT TRACK? ", currentTrack)
@@ -64,7 +65,7 @@ function TrackTableRow({track, deviceId, play, resume, pause, currentTrack, setC
             <span className="track-table__cell">{track.name}</span>
             <span className="track-table__cell">{track.album.name}</span>
             <span className="track-table__cell">{track.artists[0].name}</span>
-            <span className="track-table__cell track-table__cell--align-right">{track.duration_ms}</span>
+            <span className="track-table__cell track-table__cell--align-right">{msToMinutesAndSeconds(track.duration_ms)}</span>
         </div>
     )
 }
