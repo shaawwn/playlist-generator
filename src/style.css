@@ -58,7 +58,7 @@ a, a:hover, a:active {
 
 .navbar__btn {
     margin: 0 auto;
-    padding: 1rem;
+    padding: .5rem;
     font-size: 1.125rem;
 }
 
@@ -190,7 +190,7 @@ a, a:hover, a:active {
 }
 
 .webplayer__buttons {
-    
+
 }
 .webplayer__wrapper {
     display: flex;
@@ -204,7 +204,7 @@ a, a:hover, a:active {
 }
 
 .webplayer__wrapper--item {
-    width: 30%;
+    width: 16%;
     /* background-color: red; */
 }
 .webplayer__controls {

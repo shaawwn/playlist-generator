@@ -196,12 +196,12 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
 
     return(
         <div className="recommendations-view">
-            <Navbar 
+            {/* <Navbar 
                 generatePlaylist={generatePlaylist}
                 reset={reset}
                 resetPlaylist={resetPlaylist}
                 savePlaylist={savePlaylist}
-            />
+            /> */}
             <TrackTable 
                 tracks={recommendations}
                 deviceId={deviceId}
@@ -224,6 +224,10 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
                 setCurrentTrack={setCurrentTrack}
                 playing={playing}
                 recommendations={recommendations}
+                generatePlaylist={generatePlaylist}
+                reset={reset}
+                resetPlaylist={resetPlaylist}
+                savePlaylist={savePlaylist}
             />
         </div>
     )

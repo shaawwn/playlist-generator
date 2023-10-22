@@ -4,12 +4,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause, faForward, faBackward, faVolumeHigh, faHeadphones } from '@fortawesome/free-solid-svg-icons'
 
 
-function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previous, currentTrack, setCurrentTrack, playing, recommendations}) {
+function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previous, currentTrack, setCurrentTrack, playing, recommendations, generatePlaylist, reset, resetPlaylist, savePlaylist}) {
     // const [player, setPlayer] = useState(undefined)
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
 
     const player = useRef(null)
+
+    function handleReset() {
+        reset()
+        resetPlaylist()
+    }
     function disconnectPlayer() {
         player.current.removeListener('ready', player._eventListeners.ready[0])
         player.current.removeListener('not_ready', player._eventListeners.not_ready[0])
@@ -125,14 +130,14 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
                     
                     <FontAwesomeIcon icon={faForward} size="3x" onClick={skip}/>
                 </div>
-                <div className="webplayer__options webplayer__wrapper--item">
+                {/* <div className="webplayer__options webplayer__wrapper--item">
                     <FontAwesomeIcon icon={faHeadphones} size="3x"/>
                     <FontAwesomeIcon icon={faVolumeHigh} size="3x"/>      
-                </div>
+                </div> */}
                 <div className="webplayer__buttons">
-                <button className="navbar__btn btn" >Reroll Playlist</button>
-                <button className="navbar__btn btn" >Reset</button>
-                <button className="navbar__btn btn" >+ Playlist</button>            
+                <button className="navbar__btn btn" onClick={generatePlaylist}>Reroll</button>
+                <button className="navbar__btn btn" onClick={handleReset}>Reset</button>
+                <button className="navbar__btn btn" onClick={savePlaylist}>+ Playlist</button>            
             </div>
             </div>
 
