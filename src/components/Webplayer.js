@@ -85,7 +85,6 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
 
         return () => {
             if(player.current) {
-                console.log("Getting ready to disconnect...")
                 player.current.disconnect().then(() => console.log("Disconnected"))
             } else {
                 console.log("There is no player instance.", player)
@@ -97,13 +96,6 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
 
     }, [currentTrack])
 
-    // useEffect(() => {
-    //     if(player && (recommendations === undefined)) {
-    //         console.log("Disconnecting player")
-    //         disconnectPlayer()
-    //     }
-    //     console.log("REcommendations", recommendations)
-    // }, [recommendations, player])
 
     return(
         <div className="webplayer">

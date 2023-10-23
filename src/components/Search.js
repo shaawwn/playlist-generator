@@ -48,9 +48,7 @@ function Search({accessToken, setSeeds, seeds, searchState, setSearchState}) {
 
     function handleChange(e) {
         e.stopPropagation()
-        console.log(e.target.value)
         queryString.current = e.target.value
-        
         handleSearch(queryString.current)
     }
 
@@ -151,20 +149,14 @@ function SearchResultRow({label, id, name, seeds, setSeeds}) {
     const [current, setCurrent] = useState('')
 
     function handleClick() {
-        console.log('Clicking row', name)
         if(active === true) {
-            console.log("Removing seed")
-            // setActive(false)
             removeSeed()
         } else if(active === false) {
-            console.log("Adding seed")
-            // setActive(true)
             addSeed()
         }
     }
 
     function addSeed(e) {
-        console.log("ADDING", seed)
         if(seeds.length < 5) {
             setSeeds([...seeds, seed])
             setActive(true)
@@ -190,9 +182,9 @@ function SearchResultRow({label, id, name, seeds, setSeeds}) {
     }, [active])
 
     useEffect(() => {
-        if(active === true) {
-            console.log("ID AND NAME", id, name)
-        }
+        // if(active === true) {
+        //     console.log("ID AND NAME", id, name)
+        // }
         setActive(false) // this resets style, however
         
         // all of this ignores that what I WANT to happen is that this refreshes and creates a new row with the search result, when what is happening is that it is NOT reloading with a new row and for some reason is just replacing the id/name visually, but not state
