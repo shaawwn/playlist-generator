@@ -3,8 +3,6 @@ import TopItem from './TopItem'
 import { v4 as uuidv4 } from 'uuid';
 
 function TopItemsContainer({items, label, setSeeds, seeds}) {
-
-    
     return(
         <div className='top-items__wrapper'>
             <h2>{label}</h2>

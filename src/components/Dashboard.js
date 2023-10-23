@@ -4,8 +4,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 import {getTopArtistGenres, getTopArtists, getTopTracks, countGenres, sortTopGenres, generatePlaylist} from '../utils/helpers'
 import TopItemsContainer from './TopItemsContainer'
+import TopItems from './TopItem'
 import RecommendationsView from './RecommendationsView'
 import Search from './Search';
+import TopItem from './TopItem';
+// import TopItemHeader from './TopItemHeader';
+import SeedsHeader from './SeedsHeader';
 
 
 function Dashboard({code}) {
@@ -46,16 +50,13 @@ function Dashboard({code}) {
     function handleGeneratePlaylistClick() {
         resetSeeds() // this is close, but it resets the app temporarily when it shuld just reset recommendations
         // need to 'reset' playback, or pass it an empty list or something
-        // let genre_seeds = seeds.filter((seed) => seed[0] === 'genre').map(seed => seed[1])
         console.log("SEEDS", seeds)
         let genre_seeds = ''
         let track_seeds = seeds.filter((seed) => seed[0] === 'track').map(seed => seed[1]).toString()
         let artist_seeds = seeds.filter((seed) => seed[0] === 'artist').map(seed => seed[1]).toString()
         
-        // genre_seeds = _formatGenreSeeds(genre_seeds).toString()
-
         // If there are NO items selected, genreate automatically from top Items
-        if(genre_seeds.length === 0 && track_seeds.length === 0 && artist_seeds.length === 0) {
+        if(track_seeds.length === 0 && artist_seeds.length === 0) {
             console.log("Generating automatically", seeds)
             generateFromTopItems()
         } else {
@@ -83,18 +84,24 @@ function Dashboard({code}) {
     function displaySeedView() {
         return(
             <div className="seed-view">
-
+                <div className="seed-view__topbar">
+                    <div className="seed-view__topbar__current-seeds">
+                        {seeds.length > 0 ?
+                            <>
+                                <SeedsHeader 
+                                    seeds={seeds}
+                                    setSeeds={setSeeds}
+                                />
+                            </>
+                        :<span></span>
+                        }
+                    </div>
+                    <div className="seed-view__topbar__buttons">
+                    <button onClick={handleGeneratePlaylistClick} className="navbar__btn btn">Generate Playlist</button> 
+                    <button onClick={resetSeeds} className="navbar__btn btn">Reset</button>
+                </div>
+            </div>
             {topArtists ? <div className="top-items">
-                {/* Top Genres */}
-                {/* {topGenreCount ? 
-                    <TopItemsContainer 
-                        items={topGenreCount}
-                        label={'genre'}
-                        setSeeds={setSeeds}
-                        seeds={seeds}
-                    />
-                    :<h2>Loading</h2>
-                } */}
                 <Search 
                     accessToken={accessToken}
                     setSeeds={setSeeds}
@@ -125,9 +132,6 @@ function Dashboard({code}) {
             </div>
 
             :<h2>Nothing</h2>}
-                <button onClick={handleGeneratePlaylistClick} className="navbar__btn btn">Generate Playlist</button> 
-                <button onClick={resetSeeds} className="navbar__btn btn">Reset</button>
-                {recommendations ? <button className="navbar__btn btn">Save Playlist</button>:<span></span>}
         </div>
         )
     }
@@ -199,7 +203,9 @@ function Dashboard({code}) {
 
     }, [topGenres, topArtists, topTracks])
 
+    useEffect(() => {
 
+    }, [seeds])
 
     return (
         <div className="dashboard">

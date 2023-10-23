@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 
 function TopItem({item, id, setSeeds, seeds, label}) {
-    const [seed, setSeed] = useState([label, id])
+    const [seed, setSeed] = useState([label, id, item])
     const [active, setActive] = useState(false) // use this state to determine if an item is clicked
     const [activeStyle, setActiveStyle] = useState('')
 
@@ -17,6 +17,7 @@ function TopItem({item, id, setSeeds, seeds, label}) {
     }
 
     function addSeed(e) {
+        console.log("Adding seed", seed)
         if(seeds.length < 5) {
             setSeeds([...seeds, seed])
             setActive(true)
@@ -55,8 +56,15 @@ function TopItem({item, id, setSeeds, seeds, label}) {
         }
     }, [active])
 
+
     useEffect(() => {
+
         if(seeds.length === 0 && active === true) {
+            setActive(false)
+        }
+
+        // check if the current seed is within seeds
+        if(!seeds.includes(seed)) {
             setActive(false)
         }
     }, [seeds])

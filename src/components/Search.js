@@ -65,8 +65,8 @@ function Search({accessToken, setSeeds, seeds, searchState, setSearchState}) {
 
     return(
         <div className="search top-items__wrapper">
-            <h2>Search</h2>
-            <input type="text" placeholder="Enter artist or track name" onChange={handleChange}></input>
+            <h2>search</h2>
+            <input type="text" placeholder="Enter artist or track name" onChange={handleChange} className="search__input"></input>
             {trackResults && artistResults ?
                 <SearchResult 
                     artists={artistResults.items}
@@ -82,8 +82,8 @@ function Search({accessToken, setSeeds, seeds, searchState, setSearchState}) {
 
 
 function SearchResult({artists, tracks, seeds, setSeeds, label, id}) {
-
-    const [trackDisplay, setTrackDisplay] = useState(true)
+    console.log("Reloading results")
+    const [trackDisplay, setTrackDisplay] = useState(true) // so this was here to display tracks by default
     const [artistDisplay, setArtistDisplay] = useState(false)
     const [seed, setSeed] = useState([label, id])
     const [current, setCurrent] = useState('')
@@ -119,8 +119,10 @@ function SearchResult({artists, tracks, seeds, setSeeds, label, id}) {
                                 label={'track'}
                                 id={track.id}
                                 name={track.name}
+                                artist={track.artists[0].name}
                                 seeds={seeds}
                                 setSeeds={setSeeds}
+                                seed={['track', track.id, track.name]}
                             />
                         })}
                     </div>
@@ -133,6 +135,7 @@ function SearchResult({artists, tracks, seeds, setSeeds, label, id}) {
                         name={artist.name}
                         seeds={seeds}
                         setSeeds={setSeeds}
+                        seed={['artist', artist.id, artist.name]}
                     />
                 })}
                 </div>
@@ -142,10 +145,10 @@ function SearchResult({artists, tracks, seeds, setSeeds, label, id}) {
     )
 }
 
-function SearchResultRow({label, id, name, seeds, setSeeds}) {
+function SearchResultRow({label, id, name, artist, seeds, setSeeds, seed}) {
 
     const [active, setActive] = useState(false)
-    const [seed, setSeed] = useState([label, id])
+    // const [seed, setSeed] = useState([label, id])
     const [current, setCurrent] = useState('')
 
     function handleClick() {
@@ -173,7 +176,9 @@ function SearchResultRow({label, id, name, seeds, setSeeds}) {
         setActive(false)
     }
 
+
     useEffect(() => {
+
         if(active === true) {
             setCurrent('results-active')
         } else if(active === false) {
@@ -192,7 +197,13 @@ function SearchResultRow({label, id, name, seeds, setSeeds}) {
 
     return(
         <div className={`search__results__row ${current}`} onClick={handleClick}>
-            <p>{name}</p>
+            {artist !== undefined ? 
+               <div className="search__results__row__track">
+                <p className="search__results__row__main">{name}</p>
+                <p className="search__results__row__sub">{artist}</p>
+               </div> 
+            :<p className="search__results__row__main">{name}</p>
+            }
         </div>
     )
 }
