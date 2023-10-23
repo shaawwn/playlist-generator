@@ -18,6 +18,7 @@ function Dashboard({code}) {
     const [topTracks, setTopTracks] = useState()
     const [recommendations, setRecommendations] = useState()
     const [refresh, setRefresh] = useState(false)
+    const [searchState, setSearchState] = useState(false)
 
     const [seeds, setSeeds] = useState([]) // genres, tracks, artists
 
@@ -45,11 +46,13 @@ function Dashboard({code}) {
     function handleGeneratePlaylistClick() {
         resetSeeds() // this is close, but it resets the app temporarily when it shuld just reset recommendations
         // need to 'reset' playback, or pass it an empty list or something
-        let genre_seeds = seeds.filter((seed) => seed[0] === 'genre').map(seed => seed[1])
+        // let genre_seeds = seeds.filter((seed) => seed[0] === 'genre').map(seed => seed[1])
+        console.log("SEEDS", seeds)
+        let genre_seeds = ''
         let track_seeds = seeds.filter((seed) => seed[0] === 'track').map(seed => seed[1]).toString()
         let artist_seeds = seeds.filter((seed) => seed[0] === 'artist').map(seed => seed[1]).toString()
         
-        genre_seeds = _formatGenreSeeds(genre_seeds).toString()
+        // genre_seeds = _formatGenreSeeds(genre_seeds).toString()
 
         // If there are NO items selected, genreate automatically from top Items
         if(genre_seeds.length === 0 && track_seeds.length === 0 && artist_seeds.length === 0) {
@@ -63,10 +66,12 @@ function Dashboard({code}) {
     function reset() {
         setSeeds([])
         setRecommendations()
+        setSearchState(false)
     }
 
     function resetSeeds() {
         setSeeds([])
+        setSearchState(false)
         if(recommendations) {
             setRecommendations([]) 
         } else {
@@ -78,7 +83,8 @@ function Dashboard({code}) {
     function displaySeedView() {
         return(
             <div className="seed-view">
-            {topGenres ? <div className="top-items">
+
+            {topArtists ? <div className="top-items">
                 {/* Top Genres */}
                 {/* {topGenreCount ? 
                     <TopItemsContainer 
@@ -89,7 +95,13 @@ function Dashboard({code}) {
                     />
                     :<h2>Loading</h2>
                 } */}
-                <Search />
+                <Search 
+                    accessToken={accessToken}
+                    setSeeds={setSeeds}
+                    seeds={seeds}
+                    searchState={searchState}
+                    setSearchState={setSearchState}
+                />
                 {/* Top Tracks */}
                 {topTracks ? 
                     <TopItemsContainer 

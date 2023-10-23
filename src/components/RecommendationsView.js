@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import TrackTable from './TrackTable';
 import Navbar from './Navbar';
 import Webplayer from './Webplayer';
+import Search from './Search';
+
 import {getTrackUris, shufflePlaylist} from '../utils/helpers'
 
 
