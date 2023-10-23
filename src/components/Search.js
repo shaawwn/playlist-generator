@@ -64,6 +64,7 @@ function Search({accessToken, setSeeds, seeds, searchState, setSearchState}) {
             resetSearch()
         }
     }, [searchState])
+
     return(
         <div className="search top-items__wrapper">
             <h2>Search</h2>
@@ -86,7 +87,6 @@ function SearchResult({artists, tracks, seeds, setSeeds, label, id}) {
 
     const [trackDisplay, setTrackDisplay] = useState(true)
     const [artistDisplay, setArtistDisplay] = useState(false)
-    const [active, setActive] = useState(false)
     const [seed, setSeed] = useState([label, id])
     const [current, setCurrent] = useState('')
 
@@ -100,35 +100,13 @@ function SearchResult({artists, tracks, seeds, setSeeds, label, id}) {
         }
     }
 
-    function handleResultClick(e,label, id) {
-        e.stopPropagation()
-        console.log("TARGER", e.target)
-        const newSeed = [label, id]
-        // if result is already a seed, remove it
-        // otherwise addseed
-        if(active) {
-            // addSeed(result)
-            console.log("Removing seed", newSeed)
-            setActive(false)
-        } else {
-            // removeSeed(result)
-            console.log("Add seed", newSeed)
-            setActive(true)
-        }
-    }
-
-
     useEffect(() => {
 
     }, [])
 
     useEffect(() => {
-        if(active === true) {
-            setCurrent('results-active')
-        } else {
-            setCurrent('')
-        }
-    }, [active])
+
+    }, [artists, tracks])
 
     return(
         <div className="search__results">
@@ -186,6 +164,7 @@ function SearchResultRow({label, id, name, seeds, setSeeds}) {
     }
 
     function addSeed(e) {
+        console.log("ADDING", seed)
         if(seeds.length < 5) {
             setSeeds([...seeds, seed])
             setActive(true)
@@ -201,6 +180,7 @@ function SearchResultRow({label, id, name, seeds, setSeeds}) {
         setSeeds(newSeeds)
         setActive(false)
     }
+
     useEffect(() => {
         if(active === true) {
             setCurrent('results-active')
@@ -208,6 +188,15 @@ function SearchResultRow({label, id, name, seeds, setSeeds}) {
             setCurrent('')
         }
     }, [active])
+
+    useEffect(() => {
+        if(active === true) {
+            console.log("ID AND NAME", id, name)
+        }
+        setActive(false) // this resets style, however
+        
+        // all of this ignores that what I WANT to happen is that this refreshes and creates a new row with the search result, when what is happening is that it is NOT reloading with a new row and for some reason is just replacing the id/name visually, but not state
+    }, [id, name])
 
     return(
         <div className={`search__results__row ${current}`} onClick={handleClick}>
