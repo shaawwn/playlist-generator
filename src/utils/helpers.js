@@ -138,6 +138,7 @@ module.exports = {
     getTopTracks,
     countGenres,
     sortTopGenres,
+    generatePlaylist,
     getTrackUris,
     shufflePlaylist,
     msToMinutesAndSeconds
