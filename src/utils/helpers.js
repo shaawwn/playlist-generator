@@ -133,7 +133,7 @@ function shufflePlaylist(array) {
   }
 
   
-module.exports = {
+export {
     getTopArtistGenres,
     getTopArtists,
     getTopTracks,
