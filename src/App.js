@@ -11,7 +11,8 @@ import Dashboard from '../src/components/Dashboard'
 //
 const devUrl = 'http://localhost:3001';
 const serverURL= 'https://wispy-bird-2586.fly.dev'
-const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=02fc8d8e87dc40a89395a26008c487ac&response_type=code&redirect_uri=${serverURL}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20ugc-image-upload%20playlist-modify-private%20playlist-modify-public%20user-read-recently-played%20user-follow-read%20user-top-read`
+const uri = 'https://shaawwn.github.io/playlist-generator/'
+const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=02fc8d8e87dc40a89395a26008c487ac&response_type=code&redirect_uri=${uri}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20ugc-image-upload%20playlist-modify-private%20playlist-modify-public%20user-read-recently-played%20user-follow-read%20user-top-read`
 
 
 
