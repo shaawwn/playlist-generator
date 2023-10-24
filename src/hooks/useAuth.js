@@ -8,7 +8,7 @@ function useAuth(code) {
     // const serverURL = 'https://wispy-bird-2586.fly.dev'
     // http://localhost:3000/login
     useEffect(() => {
-        console.log("WISPY BIRD")
+
         fetch('https://wispy-bird-2586.fly.dev/login', {
             method: "POST",
             headers: {
