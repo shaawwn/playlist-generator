@@ -10,7 +10,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.post('/login', function(req, res) {
-
+    console.log("REDIRECT URI", process.env.REDIRECT_URI)
     const code = req.body.code;
     // console.log(code)
     // console.log("CODE IN BODY", code, req.body, req.method)

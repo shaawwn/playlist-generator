@@ -45,11 +45,11 @@ function useAuth(code) {
             .then((data) => {
                 setAccessToken(data.accessToken)
                 setExpiresIn(data.expiresIn)
-                window.history.pushState({}, null, '/')
+                window.history.pushState({}, null, '/playlist-generator')
     
             })
             .catch((err) => {
-                window.location = '/'
+                window.location = '/playlist-generator'
             })
         }, (expiresIn - 60) * 1000)
         if(!refreshToken || !expiresIn) return
