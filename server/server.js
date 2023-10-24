@@ -3,7 +3,7 @@ const SpotifyWebApi = require('spotify-web-api-node')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 require('dotenv').config()
-console.log("ENV", process.env)
+
 const app = express()
 // app.use(express.json())
 app.use(cors())
@@ -14,7 +14,7 @@ app.post('/login', function(req, res) {
     const code = req.body.code;
     // console.log(code)
     // console.log("CODE IN BODY", code, req.body, req.method)
-    console.log("CLIENT ID", process.env.CLIENT_ID)
+    // console.log("CLIENT ID", process.env.CLIENT_ID)
     const spotifyApi = new SpotifyWebApi({
         redirectUri: process.env.REDIRECT_URI,
         clientId: process.env.CLIENT_ID,
@@ -36,7 +36,7 @@ app.post('/login', function(req, res) {
 
 app.post('/refresh', function(req, res) {
     const refreshToken = req.body.refreshToken
-    console.log("REFRESH", refreshToken)
+    // console.log("REFRESH", refreshToken)
     const spotifyApi = new SpotifyWebApi({
         redirectUri: process.env.REDIRECT_URI,
         clientId: process.env.CLIENT_ID,
@@ -46,7 +46,7 @@ app.post('/refresh', function(req, res) {
 
     spotifyApi.refreshAccessToken()
     .then(data => {
-        console.log("Access token has been refreshed", data.body)
+        // console.log("Access token has been refreshed", data.body)
         // spotifyApi.setAccessToken(data.body['access_token'])
         res.json({
             accessToken: data.body.access_token,
@@ -60,5 +60,5 @@ app.post('/refresh', function(req, res) {
 
 var port = process.env.PORT || 3000;
 app.listen(3000, function() {
-    console.log("Listening on: ", port)
+    // console.log("Listening on: ", port)
 })

@@ -121,14 +121,14 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
                     }
                 </div>
                 <div className="webplayer__controls webplayer__wrapper--item">
-                    <FontAwesomeIcon icon={faBackward} size="3x" />
+                    <FontAwesomeIcon className="webplayer__controls__btn" icon={faBackward} size="3x" />
                     {/* {currentTrack} */}
 
-                    {playing ? <FontAwesomeIcon icon={faPause} size="3x" onClick={pause}/> 
-                    : <FontAwesomeIcon icon={faPlay} size="3x" onClick={resume}/>
+                    {playing ? <FontAwesomeIcon className="webplayer__controls__btn" icon={faPause} size="3x" onClick={pause}/> 
+                    : <FontAwesomeIcon className="webplayer__controls__btn" icon={faPlay} size="3x" onClick={resume}/>
                     }
                     
-                    <FontAwesomeIcon icon={faForward} size="3x" onClick={skip}/>
+                    <FontAwesomeIcon className="webplayer__controls__btn" icon={faForward} size="3x" onClick={skip}/>
                 </div>
                 {/* <div className="webplayer__options webplayer__wrapper--item">
                     <FontAwesomeIcon icon={faHeadphones} size="3x"/>

@@ -4,25 +4,12 @@ import TopItem from './TopItem'
 
 function SeedsHeaderItem({seed, item, id, setSeeds, seeds, label}) {
 
-    const [activeStyle, setActiveStyle] = useState('top-items__item--clicked')
-    // const [seed, setSeed] = useState([label, id, item])
-
+    const [activeStyle, setActiveStyle] = useState('seed--clicked')
 
     function removeSeed(e) {
         const newSeeds = [...seeds]
         newSeeds.splice(seeds.indexOf(seed), 1)
         setSeeds(newSeeds)
-        // const arrayToSearch = newSeeds;
-        // const arrayToFind = seed;
-        
-        // const index = arrayToSearch.findIndex(item => JSON.stringify(item) === JSON.stringify(arrayToFind));
-        
-        // if (index !== -1) {
-        //     newSeeds.splice(seed[index], 1)
-        //     setSeeds(newSeeds)
-        // } else {
-        //     console.log("Not in array", index, seed, newSeeds)
-        // }
     }
 
     function handleClick(e) {
@@ -32,9 +19,9 @@ function SeedsHeaderItem({seed, item, id, setSeeds, seeds, label}) {
     useEffect(() => {
 
     }, [seeds])
-
+        // <div className={` top-items__item top-items__item--header ${activeStyle} seed-view__topbar-seed`} onClick={(e) => handleClick(e)}>
     return(
-        <div className={`top-items__item top-items__item--header ${activeStyle}`} onClick={(e) => handleClick(e)}>
+        <div className={`seed-view__topbar-seed ${activeStyle}`} onClick={(e) => handleClick(e)}>
             <p>{item}</p>
         </div>
     )

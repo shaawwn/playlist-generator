@@ -5,9 +5,11 @@ function useAuth(code) {
     const [refreshToken, setRefreshToken] = useState()
     const [expiresIn, setExpiresIn] = useState()
 
+    // const serverURL = 'https://wispy-bird-2586.fly.dev'
+    // http://localhost:3000/login
     useEffect(() => {
-
-        fetch('http://localhost:3000/login', {
+        console.log("WISPY BIRD")
+        fetch('https://wispy-bird-2586.fly.dev/login', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +33,7 @@ function useAuth(code) {
     useEffect(() => {
         if(!refreshToken || !expiresIn) return
         const interval = setInterval(() => {
-            fetch('http://localhost:3000/refresh', {
+            fetch('https://wispy-bird-2586.fly.dev/refresh', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

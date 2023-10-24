@@ -85,6 +85,10 @@ function Dashboard({code}) {
         return(
             <div className="seed-view">
                 <div className="seed-view__topbar">
+                <div className="seed-view__topbar__buttons">
+                    <button onClick={handleGeneratePlaylistClick} className="navbar__btn btn">Generate Playlist</button> 
+                    <button onClick={resetSeeds} className="navbar__btn btn">Reset</button>
+                </div>
                     <div className="seed-view__topbar__current-seeds">
                         {seeds.length > 0 ?
                             <>
@@ -93,13 +97,9 @@ function Dashboard({code}) {
                                     setSeeds={setSeeds}
                                 />
                             </>
-                        :<span></span>
+                        :<p style={{'fontSize': '1.3rem'}}>Select items from below or search tracks and artists to generate a playlist.</p>
                         }
                     </div>
-                    <div className="seed-view__topbar__buttons">
-                    <button onClick={handleGeneratePlaylistClick} className="navbar__btn btn">Generate Playlist</button> 
-                    <button onClick={resetSeeds} className="navbar__btn btn">Reset</button>
-                </div>
             </div>
             {topArtists ? <div className="top-items">
                 <Search 
