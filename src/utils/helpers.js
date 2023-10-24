@@ -131,16 +131,13 @@ function shufflePlaylist(array) {
         minutes + ":" + (seconds < 10 ? "0" : "") + seconds
       );
   }
-/**
- * 
- */
+
 module.exports = {
     getTopArtistGenres,
     getTopArtists,
     getTopTracks,
     countGenres,
     sortTopGenres,
-    generatePlaylist,
     getTrackUris,
     shufflePlaylist,
     msToMinutesAndSeconds
