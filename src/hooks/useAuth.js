@@ -22,11 +22,11 @@ function useAuth(code) {
             setAccessToken(data.accessToken)
             setRefreshToken(data.refreshToken)
             setExpiresIn(data.expiresIn)
-            window.history.pushState({}, null, '/')
+            window.history.pushState({}, null, '/playlist-generator/')
 
         })
         .catch((err) => {
-            window.location = '/'
+            window.location = '/playlist-generator/'
         })
     }, [code])
 
