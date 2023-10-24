@@ -183,6 +183,17 @@ function Dashboard({code}) {
             setTopArtists(getTopArtists(data.items))
         })
 
+        fetch('https://api.spotify.com/v1/me/top/tracks', {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        }).then((response) => response.json())
+        .then((data) => {
+            // console.log("top track data", data)
+            //
+            setTopTracks(getTopTracks(data.items))
+        })
+
         fetch(`https://api.spotify.com/v1/me`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
@@ -194,20 +205,20 @@ function Dashboard({code}) {
         })
     }, [accessToken])
 
-    useEffect(() => {
-        if(!accessToken) return
+    // useEffect(() => {
+    //     if(!accessToken) return
 
-        fetch('https://api.spotify.com/v1/me/top/tracks', {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        }).then((response) => response.json())
-        .then((data) => {
-            // console.log("top track data", data)
-            //
-            setTopTracks(getTopTracks(data.items))
-        })
-    }, [accessToken])
+    //     fetch('https://api.spotify.com/v1/me/top/tracks', {
+    //         headers: {
+    //             'Authorization': `Bearer ${accessToken}`
+    //         }
+    //     }).then((response) => response.json())
+    //     .then((data) => {
+    //         // console.log("top track data", data)
+    //         //
+    //         setTopTracks(getTopTracks(data.items))
+    //     })
+    // }, [accessToken])
 
     useEffect(() => {
         if(!topGenres || !topArtists || !topTracks) return //      
