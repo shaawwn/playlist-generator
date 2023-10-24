@@ -132,6 +132,7 @@ function shufflePlaylist(array) {
       );
   }
 
+  
 module.exports = {
     getTopArtistGenres,
     getTopArtists,

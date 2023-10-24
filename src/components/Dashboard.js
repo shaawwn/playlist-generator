@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import useAuth from '../hooks/useAuth'
 import { v4 as uuidv4 } from 'uuid';
 
-import {getTopArtistGenres, getTopArtists, getTopTracks, countGenres, sortTopGenres} from '../utils/helpers.js'
+import {getTopArtistGenres, getTopArtists, getTopTracks, generatePlaylist, countGenres, sortTopGenres} from '../utils/helpers.js'
 
 
 import TopItemsContainer from './TopItemsContainer'
@@ -49,27 +49,27 @@ function Dashboard({code}) {
         return formattedSeeds
     }
 
-    function generatePlaylist(genres, artists, tracks, accessToken, setRecommendations) {
-        // return a recommended playlist using genre/artist/track seeds
-        // can use a total of FIVE genre/artist/tracks, anything extra willr eturn an an error, also not all genres are used in the genre_seed
+    // function generatePlaylist(genres, artists, tracks, accessToken, setRecommendations) {
+    //     // return a recommended playlist using genre/artist/track seeds
+    //     // can use a total of FIVE genre/artist/tracks, anything extra willr eturn an an error, also not all genres are used in the genre_seed
         
-        // genres are string names for the genre (eg 'classical', 'hard-rock') where hyphens are used for spaces
-        // artist/tracks are the IDs of artist/tracks
-        // everything is comma seperated
+    //     // genres are string names for the genre (eg 'classical', 'hard-rock') where hyphens are used for spaces
+    //     // artist/tracks are the IDs of artist/tracks
+    //     // everything is comma seperated
     
-        fetch(`https://api.spotify.com/v1/recommendations?seed_genres=${genres}&seed_artists=${artists}&seed_tracks=${tracks}
-        `, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        }).then((response) => response.json())
-        .then((data) => {
-            setRecommendations(data.tracks)
-        })
-        .catch((err) => {
-            console.log("There was an error", err)
-        })    
-    }
+    //     fetch(`https://api.spotify.com/v1/recommendations?seed_genres=${genres}&seed_artists=${artists}&seed_tracks=${tracks}
+    //     `, {
+    //         headers: {
+    //             'Authorization': `Bearer ${accessToken}`
+    //         }
+    //     }).then((response) => response.json())
+    //     .then((data) => {
+    //         setRecommendations(data.tracks)
+    //     })
+    //     .catch((err) => {
+    //         console.log("There was an error", err)
+    //     })    
+    // }
     function handleGeneratePlaylistClick() {
         resetSeeds() // this is close, but it resets the app temporarily when it shuld just reset recommendations
         // need to 'reset' playback, or pass it an empty list or something
