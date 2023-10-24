@@ -2,9 +2,22 @@ import {useState, useEffect} from 'react'
 import useAuth from '../hooks/useAuth'
 import { v4 as uuidv4 } from 'uuid';
 
-import {test} from '../utils/test'
-import {getTopArtistGenres, getTopArtists, getTopTracks, generatePlaylist, countGenres, sortTopGenres} from '../utils/helpers.js'
 
+// import {
+//     getTopArtistGenres, getTopArtists, getTopTracks, generatePlaylist, countGenres, sortTopGenres
+// } from '../utils/helpers.js'
+
+import {
+    getTopArtistGenres,
+    getTopArtists,
+    getTopTracks,
+    countGenres,
+    sortTopGenres,
+    generatePlaylist,
+    getTrackUris,
+    shufflePlaylist,
+    msToMinutesAndSeconds
+} from '../utils/helpers'
 
 import TopItemsContainer from './TopItemsContainer'
 import TopItems from './TopItem'
