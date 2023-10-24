@@ -44,7 +44,6 @@ function TrackTableRow({track, deviceId, play, resume, pause, currentTrack, setC
             let screenSize = window.innerWidth
             setScreenWidth(screenSize)
             window.addEventListener('resize', () => {
-                console.log("RESIZING")
                 screenSize = window.innerWidth
                 setScreenWidth(screenSize)
             })
