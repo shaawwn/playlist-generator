@@ -199,6 +199,7 @@ a, a:hover, a:active {
     display: flex;
     flex-direction: column;
 }
+
 .seed-view__topbar__current-seeds {
     height: 100%;
     display: flex;
@@ -647,6 +648,19 @@ a, a:hover, a:active {
         display: flex;
         flex-direction: column;
         gap: 5%;
+    }
+
+    .login__intro__flowchart__item > p {
+        /* font-size: 1rem; */
+        /* background-color: red; */
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .login__btn {
+        width: 70%;
+        font-size: .75rem;
+        padding: .5rem;
+        margin-bottom: 2rem;
     }
 }
 

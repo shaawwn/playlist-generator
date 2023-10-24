@@ -1,9 +1,26 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMusic, faHandPointer, faSpinner, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Login({authUrl}) {
+    const [screenWidth, setScreenWidth] = useState()
+    const [mobile, setMobile] = useState('')
+
+    useEffect(() => {
+        if(!screenWidth) {
+            let screenSize = window.innerWidth
+            setScreenWidth(screenSize)
+            window.addEventListener('resize', () => {
+                screenSize = window.innerWidth
+                if(screenSize < 421) {
+                    setMobile('--mobile')
+                }
+                setScreenWidth(screenSize)
+            })
+        }
+    }, [])
 
     return(
         <div className="view view__login">
@@ -39,7 +56,7 @@ export default function Login({authUrl}) {
                     </div>
                 </div>
                 <a href={authUrl}>
-                    <div className="btn login__btn">
+                    <div className={`btn login__btn`}>
                         <h1>Get Started</h1>
                     </div>
                 </a>  
