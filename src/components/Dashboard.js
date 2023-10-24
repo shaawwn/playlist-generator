@@ -50,7 +50,7 @@ function Dashboard({code}) {
     function handleGeneratePlaylistClick() {
         resetSeeds() // this is close, but it resets the app temporarily when it shuld just reset recommendations
         // need to 'reset' playback, or pass it an empty list or something
-        console.log("SEEDS", seeds)
+        // console.log("SEEDS", seeds)
         let genre_seeds = ''
         let track_seeds = seeds.filter((seed) => seed[0] === 'track').map(seed => seed[1]).toString()
         let artist_seeds = seeds.filter((seed) => seed[0] === 'artist').map(seed => seed[1]).toString()
