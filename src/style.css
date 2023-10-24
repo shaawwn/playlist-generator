@@ -5,7 +5,8 @@
 }
 
 :root {
-    --main-font: #ffffff;
+    /* --main-font: #ffffff; */
+    --main-font:#FCFBF4 ;
     --spotify-green: #1DB954;
     --spotify-green-hover: #159542;
     --magenta: #FF00FF;
@@ -78,13 +79,11 @@ a, a:hover, a:active {
     margin-bottom: 10%;
     padding: 1rem;
     background-color: rgba(100, 100, 100, 0.2);
-    box-shadow: -4px 5px 10px rgba(0, 200, 0, .5);
+    box-shadow: -1px 1px 10px rgba(0, 200, 0, .5);
     position: relative;
 }
 
 .login__intro__item__wrapper {
-    /* background-color: red; */
-    /* text-align: left; */
     display: flex;
 }
 
@@ -94,10 +93,6 @@ a, a:hover, a:active {
     animation: moveRight 2s forwards, clickButton 0.5s 2.5s forwards;
 }
 
-.login__intro__item__wrapper:hover .login__hand {
-    /* transform: translateX(100%); */
-    /* color: red; */
-}
 
 @keyframes moveRight {
     0% {
