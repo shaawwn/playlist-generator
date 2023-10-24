@@ -12,6 +12,7 @@
     --spotify-black: #191414;
     --spotify-black-hover: #3e3838;
     height: 100%;
+    font-family: Verdana, Helvetica, sans-serif;
 }
 
 #root {
@@ -36,16 +37,122 @@ a, a:hover, a:active {
     color: var(--main-font);
 }
 
-.login--btn {
-    /* background-color: var(--spotify-green); */
-    width: 300px;
-    margin: auto;
-    color: var(--main-font);
-    padding: 1rem;
+.music {
+
 }
 
 
+.login__banner {
+    color: var(--main-font);
+    text-align: center;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+}
 
+.login__banner__title {
+    font-size: 5rem;
+}
+
+.login__intro {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 3rem;
+    color: var(--main-font);
+    /* background-color: blue; */
+}
+
+.login__intro__flowchart {
+    display: flex;
+    gap: 5%;
+}
+
+.login__intro__flowchart__item {
+    width: 100%;
+    flex: 1;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 10%;
+    padding: 1rem;
+    background-color: rgba(100, 100, 100, 0.2);
+    box-shadow: -4px 5px 10px rgba(0, 200, 0, .5);
+    position: relative;
+}
+
+.login__intro__item__wrapper {
+    /* background-color: red; */
+    /* text-align: left; */
+    display: flex;
+}
+
+
+.login__hand {
+    text-align: left;
+    animation: moveRight 2s forwards, clickButton 0.5s 2.5s forwards;
+}
+
+.login__intro__item__wrapper:hover .login__hand {
+    /* transform: translateX(100%); */
+    /* color: red; */
+}
+
+@keyframes moveRight {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(500%);
+    }
+}
+
+@keyframes clickButton {
+    0% {
+        transform:translateX(500%);
+    } 
+    50% {
+        transform: translateX(500%) scale(.9);
+    }
+    100% {
+        transform: translateX(500%);
+    }
+}
+
+.login__spinner {
+    animation: spin 1s 3.5s;
+    animation-iteration-count: 3;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+.login__check {
+    animation: hooray 1s 7s forwards;
+}
+
+@keyframes hooray{
+    50% {
+        transform: scale(2)
+    }
+    100% {
+        transform: scale(1);
+        color: var(--spotify-green);
+    }
+}
 /* || Views */
 .view {
     height: 100%;
@@ -53,6 +160,18 @@ a, a:hover, a:active {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.login__btn {
+    /* background-color: var(--spotify-green); */
+    width: 300px;
+    margin: auto;
+    color: var(--main-font);
+    padding: 1rem;
+    font-size: 1rem;
+}
+.view__login {
+    justify-content: space-evenly;
 }
 
 
@@ -131,6 +250,44 @@ a, a:hover, a:active {
     padding: .4rem;
     font-size: 1.125rem;
 }
+
+.animation__piece {
+    /* margin-right: 0px; */
+    position: absolute;
+    right: 45px;
+    bottom: 40px;
+    z-index: -1;
+    /* background-color: red; */
+    animation: click .3s 2.5s forwards, clickColorChange 0s 2.6s forwards;
+}
+
+@keyframes click {
+    75% {
+        transform: scale(.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes clickColorChange{
+    to {
+        background-color: var(--magenta);
+    }
+}
+
+
+/* @keyframes clickButton {
+    0% {
+        transform:translateX(500%);
+    } 
+    50% {
+        transform: translateX(500%) scale(.9);
+    }
+    100% {
+        transform: translateX(500%);
+    } */
+
+
 
 .top-items__item:hover {
     background-color: var(--spotify-green-hover);
@@ -477,4 +634,19 @@ a, a:hover, a:active {
     .webplayer__now-playing > p {
         font-size: 1.3rem;
     }
+
+    .login__banner__title {
+        font-size: 2rem;
+    }
+
+    .fa-music {
+        font-size: 2rem;
+    }
+
+    .login__intro__flowchart {
+        display: flex;
+        flex-direction: column;
+        gap: 5%;
+    }
 }
+
