@@ -46,7 +46,7 @@ function useAuth(code) {
                 setAccessToken(data.accessToken)
                 setExpiresIn(data.expiresIn)
                 window.history.pushState({}, null, '/playlist-generator')
-    
+                //
             })
             .catch((err) => {
                 window.location = '/playlist-generator'
