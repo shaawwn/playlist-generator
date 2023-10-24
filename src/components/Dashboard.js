@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import useAuth from '../hooks/useAuth'
 import { v4 as uuidv4 } from 'uuid';
 
-import {getTopArtistGenres, getTopArtists, getTopTracks, countGenres, sortTopGenres} from '../utils/helpers'
+import {getTopArtistGenres, getTopArtists, getTopTracks, countGenres, sortTopGenres} from '../utils/helpers.js'
 
 
 import TopItemsContainer from './TopItemsContainer'
