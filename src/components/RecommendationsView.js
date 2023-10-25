@@ -78,9 +78,10 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
         // on clicking a track, put that track at the front of the list of tracks to play.
         const indexOfTrack = playlist.indexOf(trackId)
         let modPlaylist = [...playlist]
-        const track = modPlaylist.splice(indexOfTrack, 1)
-        modPlaylist.unshift(track[0])
-        return modPlaylist
+        let firstHalf = modPlaylist.slice(0, indexOfTrack - 1)
+        let secondHalf = modPlaylist.slice(indexOfTrack, modPlaylist.length)
+
+        return secondHalf.concat(firstHalf)
     }
     
     function resume() {
@@ -174,6 +175,7 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
     }
 
     function previous() {
+        console.log("PREVIOUS")
         fetch(`https://api.spotify.com/v1/me/player/previous?device_id=${deviceId}`, {
             method: "POST",
             headers: {

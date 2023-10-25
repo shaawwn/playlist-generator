@@ -140,7 +140,7 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
                     }
                 </div>
                 <div className="webplayer__controls webplayer__wrapper--item">
-                    <FontAwesomeIcon className="webplayer__controls__btn" icon={faBackward} size="3x" />
+                    <FontAwesomeIcon className="webplayer__controls__btn" icon={faBackward} size="3x"  onClick={previous}/>
                     {/* {currentTrack} */}
 
                     {playing ? <FontAwesomeIcon className="webplayer__controls__btn" icon={faPause} size="3x" onClick={pause}/> 
