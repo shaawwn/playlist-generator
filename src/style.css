@@ -432,13 +432,17 @@ a, a:hover, a:active {
     width: 16%;
     /* background-color: red; */
 }
+
 .webplayer__controls {
     display: flex;
     justify-content: space-between;
 
 }
 
-
+.webplayer__controls__btn {
+    cursor: pointer;
+    color: var(--main-font);
+}
 .webplayer__controls__btn:hover {
     /* color: red; */
     cursor: pointer;
@@ -624,6 +628,7 @@ a, a:hover, a:active {
     }
     .track-table__row {
         padding: 0px;
+        margin-top: 5px;
     }
 
     .track-table__cell {
@@ -645,12 +650,65 @@ a, a:hover, a:active {
     }
     .webplayer__buttons {
         display: flex;
+        gap: 2px;
+    }
+
+    .webplayer__controls {
+        padding: 1rem;
+    }
+
+    .webplayer__controls__btn {
+        font-size: 2rem;
+        /* color: var(--main-font); */
+    }
+
+    .webplayer__controls__btn:hover {
+        color: var(--main-font);
+    }
+
+    @keyframes colorSwitch {
+        0% {
+            color: var(--main-font);
+        } 
+        50% {
+            color: var(--spotify-green);
+        }
+        100% {
+            color: var(--main-font);
+        }
+    }
+
+    .webplayer__btn {
+        font-size: 1.3rem;
+        padding: .5rem;
+        border: 0px;
+        width: 30%;
     }
 
     .webplayer__details {
         width: 100%;
         justify-content: center;
-        gap: 20%;
+        /* gap: 20%; */
+    }
+
+    .webplayer__album {
+        width: 35%;
+        /* background-color: blue; */
+    }
+
+    .webplayer__album__image {
+        /* margin: 0 auto; */
+        margin-left: 25%;
+    }
+
+    .webplayer__details__song__details {
+        width:65%;
+        /* background-color: red; */
+    }
+
+    .webplayer__now-playing {
+        text-align: left;
+        font-size: 1rem;
     }
 
     .webplayer__controls {
@@ -661,6 +719,19 @@ a, a:hover, a:active {
 
     .webplayer__now-playing > p {
         font-size: 1.3rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .webplayer__artist > p {
+        font-size: 1rem;
+    }
+
+    .webplayer__album--skeleton {
+        width: 64px;
+        height: 64px;
+        background-color: var(--spotify-black-hover);
     }
 
     .login__banner__title {

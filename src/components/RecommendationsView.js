@@ -84,7 +84,7 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
     }
     
     function resume() {
-        console.log("RESUME")
+        // console.log("RESUME")
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
             method: "PUT",
             headers: {
@@ -109,7 +109,7 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
         // track.id (I should set currentTrack to the full track object so I can use it)
 
         // pause() // there's a fraction of a second audio at the start of some songs, maybe because it is trying to play another song before switchin?
-        console.log("TRACK", track.name)
+        // console.log("TRACK", track.name)
         const uris = setFirstTrack(track.uri)
 
 
@@ -205,12 +205,6 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
 
     return(
         <div className="recommendations-view">
-            {/* <Navbar 
-                generatePlaylist={generatePlaylist}
-                reset={reset}
-                resetPlaylist={resetPlaylist}
-                savePlaylist={savePlaylist}
-            /> */}
             <TrackTable 
                 tracks={recommendations}
                 deviceId={deviceId}

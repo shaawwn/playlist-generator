@@ -22,6 +22,7 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
         resetPlaylist()
         generatePlaylist()
     }
+
     function disconnectPlayer() {
         player.current.removeListener('ready', player._eventListeners.ready[0])
         player.current.removeListener('not_ready', player._eventListeners.not_ready[0])
@@ -117,7 +118,25 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
                                 </div>
                             </div>
                         </>
-                    :<span></span>
+                    // :<span></span>
+
+                    :<>
+                            <div className="webplayer__album--skeleton">
+                                {/* <img src={currentTrack.album.images[1].url} alt="album cover" className="webplayer__album__image">
+
+                                </img> */}
+                            </div>
+                            <div className="webplayer__details__song__details">
+                                <div className="webplayer__now-playing">
+                                    {/* <p>{currentTrack.name}</p> */}
+                                    <p>No Current Song</p>
+                                </div>
+                                <div className="webplayer__artist">
+                                    {/* <p>{currentTrack.artists[0].name}</p> */}
+                                    <p>None</p>
+                                </div>
+                            </div>
+                    </>
                     }
                 </div>
                 <div className="webplayer__controls webplayer__wrapper--item">
@@ -135,9 +154,9 @@ function Webplayer({accessToken, setDeviceId, play, pause, resume, skip, previou
                     <FontAwesomeIcon icon={faVolumeHigh} size="3x"/>      
                 </div> */}
                 <div className="webplayer__buttons">
-                <button className="navbar__btn btn" onClick={generatePlaylist}>Reroll</button>
-                <button className="navbar__btn btn" onClick={handleReset}>Reset</button>
-                <button className="navbar__btn btn" onClick={savePlaylist}>+ Playlist</button>            
+                <button className="navbar__btn btn webplayer__btn" onClick={generatePlaylist}>Reroll</button>
+                <button className="navbar__btn btn webplayer__btn" onClick={handleReset}>Reset</button>
+                <button className="navbar__btn btn webplayer__btn" onClick={savePlaylist}>+ Playlist</button>            
             </div>
             </div>
 
