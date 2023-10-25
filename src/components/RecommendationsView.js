@@ -106,6 +106,7 @@ function RecommendationsView({recommendations, accessToken, generatePlaylist, re
         })
     }
 
+
     function play(track) {
         // track.id (I should set currentTrack to the full track object so I can use it)
 
